@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <node id="1">
+	  <text>э слыш ты что тут делаешь</text>
+    <reply goto="7">как ты со мной разговариваешь проклятый зверолюд</reply>
+    <reply>простите я не туда защёл</reply>
+	 <reply goto="2">налей мне эля</reply>
+	  <reply goto="5" haveqest="2">я хочу узнать про Меч светлой кары</reply>
+  </node>
+	<node id="2">
+		<text>[наливает вам сивухи]на держи</text>
+		<reply goto="3">можешь налить чтото получше</reply>
+		<reply goto="7">[начать драку]</reply>
+		<reply goto="5" haveqest="2">я хочу узнать про Меч светлой кары</reply>
+	</node>
+  <node id="3">
+	  <text>можешь идти в своего Стрёмного Шута[в товерне раздался громкий хохот]</text>
+	  <reply>ну я пошёл</reply>
+	  <reply goto="7">[начать драку]</reply>
+	  <reply goto="5" haveqest="2">я хочу узнать про Меч светлой кары</reply>
+  </node>
+  <node id="4">
+	  <text>[вы лежыте истекая кровю, уборщик зверолюд смотрит на вас с неодобрением]</text>
+	  <reply gameover="">[умереть]</reply>
+  </node>
+  <node id="5">
+    <text>зачем тебе эта информация</text>
+    <reply goto="7">не твоё собаче дело</reply>
+	  <reply goto="6">просто нужно</reply>  
+  </node>
+	
+	<node id="6">
+		<text>он находится в  подвале винокурни</text>
+		<reply>спасибо я пошёл</reply>
+		<reply goto="7">типерь вам всем конец</reply>
+	</node>
+	<node id="7">
+		<text>из-за вашего поведения нечалась драка и вы погибли</text>
+		<reply goto="4">дальше</reply>
+	</node>
+	<node id="8">
+		<text>попробуй сначало доберись</text>
+		<reply goto="7">[начать драку]</reply>
+		<reply>нет</reply>
+	</node>
+</dialog>

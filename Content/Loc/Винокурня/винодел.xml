@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <node id="1">
+	  <text>э слыш ты что тут делаешь</text>
+    <reply goto="3">расскажи проэту товерну</reply>
+    <reply goto="3">как ты со мной разговариваешь проклятый зверолюд</reply>
+    <reply>простите я не туда защёл</reply>
+	<reply>я хочу узнать про Меч светлой кары </reply>
+	 <reply goto="2">налей мне эля</reply>
+	  <reply goto="4" haveqest="2">немогбы ты представиться</reply>
+  </node>
+	<node id="2">
+		<text>[наливает вам сивухи]на держи</text>
+		<reply goto="3">можешь налить чтото получше</reply>
+		<reply>"драка"</reply>
+	</node>
+  <node id="3">
+	  <text>можешь идти в своего Стрёмного Шута[в товерне раздался громкий хохот]</text>
+	  <reply>ну я пошёл</reply>
+	  <reply>"врезать"</reply>
+  </node>
+  <node id="4">
+	  <text>[вас убили]</text>
+  </node>
+  <node id="5">
+    <text>Просто не люблю людей.</text>
+    <reply>Ладно давай за роботу.</reply>
+  </node>
+</dialog>
