@@ -10,6 +10,27 @@ class GameState
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, bool> ReceivedQuest = new Dictionary<int, bool>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
+    public void Save ()
+    {
+        XElement xSave = new XElement("save");
+        //Созранем тех, с кем поговорили
+        XElement xNpcWeSpokeTo = new XElement("NpcWeSpokeTo"); 
+        xSave.Add(xNpcWeSpokeTo);
+        foreach (string npc in NpcWeSpokeTo.Keys)
+        {
+            XElement xNpc = new XElement("npc", npc);
+            xNpcWeSpokeTo.Add(xNpc);    
+        }
+
+        XElement xGlobalFlags = new XElement("GlobalFlags");
+        xSave.Add(xGlobalFlags);
+        foreach (int flag in GlobalFlags.Keys)
+        {
+            XElement xFlag = new XElement("flag", flag);
+            xGlobalFlags.Add(xFlag);
+        }
+        xSave.Save(@"C:\LPA2019\Save.xml");
+    }
 }
 
 class Program
@@ -65,7 +86,10 @@ class Program
                 r = ReadReplyNumber(characters.Count);
                 string characterFile = characters[r].Attribute("link").Value.Trim();
                 PlayDialog(LoadCharacter(characterFile));
-                state.NpcWeSpokeTo.Add(characterFile, false);
+
+                if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
+                    state.NpcWeSpokeTo.Add(characterFile, false);
+                state.Save();
             }
         }
     }
