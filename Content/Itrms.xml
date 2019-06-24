@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+	<Item id="1" price="10" >Бутылка эля</Item>
+	<Item id="2">Коса</Item>
+	<Item id="3" price="50">Лопата</Item>
+	<Item id="4">Послание от зверолюдов</Item>
+	<Item id="5" price="2">Цветы</Item>
+	<Item id="6">Мыло</Item>
+	<Item id="7">Носок</Item>
+	<Item id="8">Кольчуга</Item>
+	<Item id="9">Мешок с деньгами</Item>
+	<Item id="10">Монета</Item>
+	<Item id="11">Меч светлой кары</Item>
+	<Item id="12">Вывиска</Item>
+	<Item id="13">Коврик</Item>
+	<Item id="14">Футболка</Item>
+	<Item id="15">Штаны</Item>
+	<Item id="16">Носки</Item>
+</Items>

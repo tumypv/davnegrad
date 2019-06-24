@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Quests>
+	<Quest id="1">Дочка кузнеца</Quest>
+	<Quest id="2">Починка винокурни</Quest>
+	<Quest id="3">Кошение травы</Quest>
+	<Quest id="4">Помощь фермеру Хиро</Quest>
+	<Quest id="5">Помочь винокурне собрать ингридиенты</Quest>
+	<Quest id="6">Разузнать об Эмрое</Quest>
+	<Quest id="7">Меч светлой кары</Quest>
+	<Quest id="8">Убить короля</Quest>
+	<Quest id="9">Поменять вивиску</Quest>
+	<Quest id="10">Поменять коврик</Quest>
+</Quests>
