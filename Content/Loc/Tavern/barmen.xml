@@ -4,7 +4,7 @@
     <text>Что будете пить? У нас есть отличный эль!</text>
     <reply goto="2" price="3">Давайте попробуем ваш хвалёный эль.</reply>
     <reply goto="2" price_="3">Я бы рад попробовать, но у меня нет денег.</reply>
-    <reply goto="2" flag="100" flagnotset="100" take="100" >Я бы предпочёл водички.</reply>
+    <reply goto="12" flag="100" flagnotset="100" take="100" >Может быть есть кая-нибудь работа?</reply>
     <reply goto="11" flagset="100">Я бы предпочёл водички.</reply>
     <reply>Спасибо, ничего, зайду в другой раз.</reply>
   </node>
@@ -65,11 +65,24 @@
 		<text>Точно не понмю в каком доме, но помню что они жтивут на ферме</text>
 		<reply flag="4">Спасибо за информацию, до скорых встреч!</reply>
 	</node>
-  <node id="11">
+    <node id="11">
     <text>У меня тут что, водокачка?</text>
-    <reply quest="500">Хотите чтоб была?</reply>
-    <reply goto="3">Я здесь новенький, можете мне рассказать о городе?</reply>
-    <reply goto="4">Есть какие-нибудь интересные новости?</reply>
-  </node>
-
+		<reply quest="500">Хотите чтоб была?</reply>
+		<reply goto="3">Я здесь новенький, можете мне рассказать о городе?</reply>
+		<reply goto="4">Есть какие-нибудь интересные новости?</reply>
+    </node>
+	<node>
+		<text>На отнеси стакан воды Шиндо.</text>
+		<reply quest="100">Хорошо, подожди одну минуту.</reply>
+	    <reply goto="2">Нет, спасибо.</reply>
+    </node>
+	<node>
+		<text>Ну что отнёс?</text>
+		<reply isquestover="100" goto="13">Да, я отнёс.</reply>
+		<reply isquestnotover="100">Я работаю над этим.</reply>
+	</node>
+	<node>
+		<text>Молодец</text>
+		<reply goto="2">Ага, спасибо)</reply>
+	</node>
 </dialog>

@@ -2,7 +2,7 @@
 <dialog>
 	<node id="1">
 		<text>Что-то хотели?</text>
-    <reply item="100" give="100">Вот тебе водички, не благодари!</reply>
+    <reply item="100" give="100" endquest="100">Вот тебе водички, не благодари!</reply>
     <reply havequest="500">Прикинь бармен дурак, повёлся на шутку!)</reply>
     <reply goto="2">Это вы мастер гильдии?</reply>
 		<reply>Ничего.</reply>

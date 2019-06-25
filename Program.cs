@@ -86,7 +86,7 @@ class GameState
 
 class Program
 {
-    static GameState state = GameState.Load(@"..\..\Save.xml"); //new GameState();
+    static GameState state = new GameState();
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
@@ -96,7 +96,7 @@ class Program
         //var waveOut = new WaveOutEvent();
         //waveOut.Init(mp3Reader);
         //waveOut.Play();
-        GameState.Load(@"..\..\Save.xml");
+        state = GameState.Load(@"..\..\Save.xml");
 
         XElement xCityMap = XElement.Load(citymapPath);
         XElement xCurrentLoc = GetLocByID(xCityMap, 1);
