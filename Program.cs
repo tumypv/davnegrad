@@ -1,4 +1,4 @@
-﻿using NAudio.Wave;
+﻿//using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -10,16 +10,46 @@ class GameState
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, bool> ReceivedQuest = new Dictionary<int, bool>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
-    public void Save ()
+
+    public static GameState Load(string path)
+    {
+        GameState state = new GameState();
+
+        XElement xLoad = XElement.Load(path);
+        XElement xNpcWeSpokeTo = xLoad.Element("NpcWeSpokeTo");
+        foreach (XElement xNpc in xNpcWeSpokeTo.Elements())
+        {
+            state.NpcWeSpokeTo.Add(xNpc.Value, false);
+        }
+        XElement xGlobalFlags = xLoad.Element("GlobalFlags");
+        foreach (XElement xFlag in xGlobalFlags.Elements())
+        {
+            state.GlobalFlags.Add((int)xFlag, false);
+        }
+        XElement xReceivedQuest = xLoad.Element("ReceivedQuest");
+        foreach (XElement xQuest in xReceivedQuest.Elements())
+        {
+            state.ReceivedQuest.Add((int)xQuest, false);
+        }
+        XElement xInventory = xLoad.Element("Inventory");
+        foreach (XElement xItem in xInventory.Elements())
+        {
+            int id = (int)xItem.Attribute("id");
+            state.Inventory.Add(id, (int)xItem);
+        }
+
+        return state;
+    }
+    public void Save(string path)
     {
         XElement xSave = new XElement("save");
-        //Созранем тех, с кем поговорили
-        XElement xNpcWeSpokeTo = new XElement("NpcWeSpokeTo"); 
+        //Сохранем тех, с кем поговорили
+        XElement xNpcWeSpokeTo = new XElement("NpcWeSpokeTo");
         xSave.Add(xNpcWeSpokeTo);
         foreach (string npc in NpcWeSpokeTo.Keys)
         {
             XElement xNpc = new XElement("npc", npc);
-            xNpcWeSpokeTo.Add(xNpc);    
+            xNpcWeSpokeTo.Add(xNpc);
         }
 
         XElement xGlobalFlags = new XElement("GlobalFlags");
@@ -29,22 +59,46 @@ class GameState
             XElement xFlag = new XElement("flag", flag);
             xGlobalFlags.Add(xFlag);
         }
-        xSave.Save(@"C:\LPA2019\Save.xml");
+
+        XElement xReceivedQuest = new XElement("ReceivedQuest");
+        xSave.Add(xReceivedQuest);
+        foreach (int quest in ReceivedQuest.Keys)
+        {
+            XElement xQuest = new XElement("quest", quest);
+            xReceivedQuest.Add(xQuest);
+        }
+
+        XElement xInventory = new XElement("Inventory");
+        xSave.Add(xInventory);
+        foreach (int item in Inventory.Keys)
+        {
+            int q = Inventory[item];
+            XElement xItem = new XElement("item", q);
+            xInventory.Add(xItem);
+            XAttribute xQ = new XAttribute("id", item);
+            xItem.Add(xQ);
+        }
+
+        xSave.Save(path);
     }
+    
 }
 
 class Program
 {
-    static GameState state = new GameState();
-
+    static GameState state = GameState.Load(@"..\..\Save.xml"); //new GameState();
+    static string locationPath = @"..\..\Content\Loc";
+    static string citymapPath = @"..\..\Content\citymap.xml";
+    static string savePath = @"..\..\Save.xml";
     static void Main(string[] args)
     {
-        var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
-        var waveOut = new WaveOutEvent();
-        waveOut.Init(mp3Reader);
-        waveOut.Play();
+        //var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
+        //var waveOut = new WaveOutEvent();
+        //waveOut.Init(mp3Reader);
+        //waveOut.Play();
+        GameState.Load(@"..\..\Save.xml");
 
-        XElement xCityMap = XElement.Load(@"C:\LPA2019\Content\citymap.xml");
+        XElement xCityMap = XElement.Load(citymapPath);
         XElement xCurrentLoc = GetLocByID(xCityMap, 1);
 
         while (8 == 8)
@@ -89,16 +143,15 @@ class Program
 
                 if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
                     state.NpcWeSpokeTo.Add(characterFile, false);
-                state.Save();
+                state.Save(savePath);
             }
         }
     }
 
     private static XElement LoadCharacter(string fileName)
     {
-        string dir = @"C:\LPA2019\Content\Loc";
         string[] files =
-            System.IO.Directory.GetFiles(dir, "*.xml", System.IO.SearchOption.AllDirectories);
+            System.IO.Directory.GetFiles(locationPath, "*.xml", System.IO.SearchOption.AllDirectories);
         foreach (string file in files)
         {
             if (System.IO.Path.GetFileNameWithoutExtension(file) == fileName)
@@ -167,11 +220,11 @@ class Program
                 )
                 &&
                 (
-                    havequest == null || state.ReceivedQuest.ContainsKey(havequest.Value)                
+                    havequest == null || state.ReceivedQuest.ContainsKey(havequest.Value)
                 )
                 &&
                 (
-                    item == null || state.Inventory.ContainsKey(item.Value)                
+                    item == null || state.Inventory.ContainsKey(item.Value)
                 )
                 &&
                 (
@@ -228,7 +281,7 @@ class Program
                     else
                         state.Inventory[give.Value] = q - 1;
                 }
-                    
+
                 else
                     throw new InvalidOperationException();
             }
