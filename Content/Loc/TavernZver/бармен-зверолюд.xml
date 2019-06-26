@@ -5,19 +5,19 @@
 		<reply goto="7">Как ты со мной разговариваешь проклятый зверолюд.</reply>
 		<reply>Простите я не туда зашёл.</reply>
 		<reply goto="2">Налей мне эля.</reply>
-		<reply goto="5" haveqest="2">Я хочу узнать про Меч светлой кары.</reply>
+		<reply goto="5" setquest="accepted" qest="2">Я хочу узнать про Меч светлой кары.</reply>
 	</node>
 	<node id="2">
 		<text>[Наливает вам сивухи]На держи.</text>
 		<reply goto="3">Можешь налить что-то получше.</reply>
 		<reply goto="7">[Начать драку].</reply>
-		<reply goto="5" haveqest="2">Я хочу узнать про Меч светлой кары.</reply>
+		<reply goto="5" setquest="accepted" qest="2">Я хочу узнать про Меч светлой кары.</reply>
 	</node>
 	<node id="3">
 		<text>Можешь идти в своего Стрёмного Шута[в товерне раздался громкий хохот].</text>
 		<reply>Ну я пошёл.</reply>
 		<reply goto="7">[Начать драку].</reply>
-		<reply goto="5" haveqest="2">Я хочу узнать про Меч светлой кары.</reply>
+		<reply goto="5" setquest="accepted" qest="2">Я хочу узнать про Меч светлой кары.</reply>
 	</node>
 	<node id="4">
 		<text>[Вы лежыте истекая кровю, уборщик зверолюд смотрит на вас с неодобрением].</text>

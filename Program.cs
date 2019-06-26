@@ -3,14 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
+enum QState
+{
+    accepted, completed, unknown, failed, reported
+}
+
 class GameState
 {
     public int Money = 0;
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
-    public Dictionary<int, bool> ReceivedQuest = new Dictionary<int, bool>();
+    public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
 
+    //Загружаем сохранение
     public static GameState Load(string path)
     {
         GameState state = new GameState();
@@ -29,7 +35,7 @@ class GameState
         XElement xReceivedQuest = xLoad.Element("ReceivedQuest");
         foreach (XElement xQuest in xReceivedQuest.Elements())
         {
-            state.ReceivedQuest.Add((int)xQuest, false);
+        //    state.QuestState.Add((int)xQuest, false);
         }
         XElement xInventory = xLoad.Element("Inventory");
         foreach (XElement xItem in xInventory.Elements())
@@ -62,7 +68,7 @@ class GameState
 
         XElement xReceivedQuest = new XElement("ReceivedQuest");
         xSave.Add(xReceivedQuest);
-        foreach (int quest in ReceivedQuest.Keys)
+        foreach (int quest in QuestState.Keys)
         {
             XElement xQuest = new XElement("quest", quest);
             xReceivedQuest.Add(xQuest);
@@ -86,7 +92,7 @@ class GameState
 
 class Program
 {
-    static GameState state = GameState.Load(@"..\..\Save.xml"); //new GameState();
+    static GameState state = new GameState();
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
@@ -96,7 +102,7 @@ class Program
         //var waveOut = new WaveOutEvent();
         //waveOut.Init(mp3Reader);
         //waveOut.Play();
-        GameState.Load(@"..\..\Save.xml");
+        //state = GameState.Load(@"..\..\Save.xml");
 
         XElement xCityMap = XElement.Load(citymapPath);
         XElement xCurrentLoc = GetLocByID(xCityMap, 1);
@@ -200,7 +206,13 @@ class Program
             int? price_ = (int?)xr.Attribute("price_"); // сколько должно не быть денег, чтобы показать реплику
             int? flagset = (int?)xr.Attribute("flagset");
             int? flagnotset = (int?)xr.Attribute("flagnotset");
-            int? havequest = (int?)xr.Attribute("havequest");
+            int? quest = (int?)xr.Attribute("quest");
+
+            XAttribute xCheckquest = xr.Attribute("checkquest");
+            QState checkquest = xCheckquest != null
+                ? (QState)Enum.Parse(typeof(QState), xCheckquest.Value)
+                : QState.unknown;
+
             int? item = (int?)xr.Attribute("item");
             int? noitem = (int?)xr.Attribute("noitem");
 
@@ -220,7 +232,7 @@ class Program
                 )
                 &&
                 (
-                    havequest == null || state.ReceivedQuest.ContainsKey(havequest.Value)
+                    quest == null || xCheckquest == null || (state.QuestState.ContainsKey(quest.Value) && state.QuestState[quest.Value] == checkquest)
                 )
                 &&
                 (
@@ -258,8 +270,18 @@ class Program
                 state.GlobalFlags.Add(flag.Value, false);
 
             int? quest = (int?)xreply.Attribute("quest");
-            if (quest != null)
-                state.ReceivedQuest.Add(quest.Value, false);
+            XAttribute xSetquest = xreply.Attribute("setquest");
+            QState setquest = xSetquest != null
+                ? (QState)Enum.Parse(typeof(QState), xSetquest.Value)
+                : QState.unknown;
+
+            if (quest != null && xSetquest != null)
+            {
+                if (state.QuestState.ContainsKey(quest.Value))
+                    state.QuestState[quest.Value] = setquest;
+                else
+                    state.QuestState.Add(quest.Value, setquest);
+            }
 
             int? take = (int?)xreply.Attribute("take");
             if (take != null)

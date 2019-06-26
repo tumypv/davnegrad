@@ -1,21 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <dialog>
 	<node id="1">
-		<text>Путник покупай оружие да и броню тоже купи.</text>
-		<reply goto="2">Скoлько стоит кольчуга?</reply>
-		<reply goto="3">А откуда вы берёте оружие и браню?</reply>
-		<reply give="12" havequest="9" flag="11">Поменять вывеску.</reply>
-		<reply>Извините, но мне не нужно.</reply>
+		<text>эй что ты тут делаешь?</text>
+		<reply goto="2">можеш дать королю это особое вино?</reply>
+		<reply goto="3">а что вы тут готовите?</reply>
+		<reply>Извините,я не туда зшёл</reply>
 	</node>
 	
 	<node id="2">
-		<text>Кольчуга стоит 300 монет.</text>
-		<reply take="8" price="300">Купить.</reply>
-		<reply goto="1">У меня есть ещё вопросы.</reply>
+		<text>а что за вино?</text> 
+		<reply goto="4">это яд</reply>
+		<reply goto="5">это очень хорошое вино от местного винокура</reply>
 	</node>
 	
 	<node id="3">
-		<text>Я их беру у кузница который живет тут не подалёку.</text>
+		<text>еду для его величества, что то ещё? </text>
+		<repiy>Спасибо до свидания.</repiy>
+		<repiy goto="1">да</repiy>
+	</node>
+	<node id="4">
+		<text>CТРАЖА</text>
+		<repiy>[бежать]</repiy>
+	</node>
+	<node id="5">
+		<text>хорошо местного винокура я знаю</text>
 		<repiy>Спасибо до свидания.</repiy>
 	</node>
 	</dialog>

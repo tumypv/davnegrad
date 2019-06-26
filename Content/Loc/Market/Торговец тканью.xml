@@ -37,7 +37,7 @@
 	</node>
 
 	<node id="6">
-		<text></text>
+		<text>Хотите купить бархатную ткань?</text>
 		<reply price="7">Купить</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>

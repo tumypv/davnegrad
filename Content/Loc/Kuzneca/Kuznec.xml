@@ -51,7 +51,7 @@
 	<node id="1000">
 		<text>Опять ты?</text>
 		<reply goto="8" give="">Вот бухло которое ты заказывал</reply>
-		<reply give_="">Я думаю где взять для тебя эль</reply>
+		<reply give_="1">Я думаю где взять для тебя эль</reply>
 	</node>
 	<node id="2000">
 		<text>Опять ты?</text>
