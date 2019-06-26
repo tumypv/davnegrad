@@ -41,7 +41,7 @@
   </node>
   <node id="8">
     <text>Нужно найти "Меч светлой кары". Возмёшься?</text>
-    <reply quest="7">Да, не думаю что оно такое сложное.</reply>
+    <reply quest="7" setquest="accepted">Да, не думаю что оно такое сложное.</reply>
     <reply>Мне нужно подумать</reply>
   </node>
   <node id="9" >

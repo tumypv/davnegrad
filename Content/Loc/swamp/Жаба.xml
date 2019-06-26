@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dialog>
+	<node id="1">
+		<text>Ква-ква-ква.</text>
+		<reply quest="4" checkquest="accepted"  goto="2">Привет жаба можно я тебя убью.</reply>
+		<reply goto="3">Кто ты такая?</reply>
+		<reply>Простите я ошибся.</reply>
+	</node>
+
+	<node id="2">
+		<text>Нет-ква.</text>
+		<reply goto="4">Почему тебя нельзя убить?</reply>
+		<reply>Жаль я пожалуй пойду.</reply>
+	</node>
+
+	<node id="3">
+		<text>Я гиганская жаба, так-что уходи иначе сьем.</text>
+		<reply>Хорошо ухожу</reply>
+	</node>
+
+	<node id="4">
+		<text>Я хочу жить-ква.</text>
+		<reply goto="5">Всё равно я тебя убью.</reply>
+		<reply goto="6">Ладно я тебя не буду убивать, но ты тогда убегай прочь в другое королество.</reply>
+	</node>
+	
+	<node id="5">
+		<text>А я убегу-ква.</text>
+		<reply goto="6">Ну тогда убегай в другое королество</reply>
+	</node>
+	
+	<node id="6">
+		<text>Хорошо я убегу в другую страну.</text>
+		<reply setquest="completed">Ну тогда убегай желаю удачи.</reply>
+	</node>
+</dialog>
+
