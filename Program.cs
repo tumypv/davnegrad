@@ -129,8 +129,7 @@ class Program
                     Console.WriteLine("{0}) {1}", ways.Count, xWay.Value.Trim());
                 }
                 r = ReadReplyNumber(ways.Count);
-                int wayToGoId = (int)ways[r].Attribute("to");
-                xLoc = GetLocByID(xCityMap, wayToGoId);
+                state.CurrentLoc = (int)ways[r].Attribute("to");
             }
             else
             {
