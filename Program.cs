@@ -36,7 +36,7 @@ class GameState
         XElement xReceivedQuest = xLoad.Element("ReceivedQuest");
         foreach (XElement xQuest in xReceivedQuest.Elements())
         {
-        //    state.QuestState.Add((int)xQuest, false);
+            //    state.QuestState.Add((int)xQuest, false);
         }
         XElement xInventory = xLoad.Element("Inventory");
         foreach (XElement xItem in xInventory.Elements())
@@ -88,7 +88,7 @@ class GameState
 
         xSave.Save(path);
     }
-    
+
 }
 
 class Program
@@ -101,11 +101,65 @@ class Program
 
     static void Main(string[] args)
     {
+        Console.SetWindowSize(80, 25);
+        Console.SetBufferSize(80, 25);
+
         //var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
         //var waveOut = new WaveOutEvent();
         //waveOut.Init(mp3Reader);
         //waveOut.Play();
-        //state = GameState.Load(@"..\..\Save.xml");
+
+        while (8 == 8)
+        {
+            Console.Clear();
+            Center("ЛЕТНЯЯ ПРОЕКТНАЯ АКАДЕМИЯ", 2);
+            Center("Мастерская: Текстовое приключение", 4);
+            Center("ПРИКЛЮЧЕНИЯ В ДАВНЕГРАДЕ", 6);
+            Right("Разработчики:   ", 8);
+            Right("Егор Деревягин  ", 9);
+            Right("Юрий Фролов     ", 10);
+            Right("Виктор Тюмереков", 11);
+            Right("Мастер:         ", 12);
+            Right("Тимур Вишняков  ", 13);
+            Center("Абакан 2019", 24);
+            Center("1. НОВАЯ ИГРА", 10);
+            Center("2. ПРОДОЛЖИТЬ ИГРУ", 12);
+            Center("3. ВЫХОД", 14);
+
+            int e = ReadReplyNumber(3);
+            if (e == 0)
+            {
+                PlayGame();
+            }
+            else if (e == 1)
+            {
+                state = GameState.Load(@"..\..\Save.xml");
+                PlayGame();
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    static void Center(string s, int line)
+    {
+        var x = Console.BufferWidth / 2 - s.Length / 2;
+        Console.SetCursorPosition(x, line);
+        Console.WriteLine(s);
+    }
+
+    static void Right(string s, int line)
+    {
+        var x = Console.BufferWidth - s.Length;
+        Console.SetCursorPosition(x, line);
+        Console.WriteLine(s);
+    }
+
+    static void PlayGame()
+    {
+        Console.Clear();
 
         xCityMap = XElement.Load(citymapPath);
         state.CurrentLoc = 1;
@@ -118,7 +172,8 @@ class Program
             Console.WriteLine("Вы находитесь: {0}.", text);
             Console.WriteLine("1) Уйти");
             Console.WriteLine("2) Осмотреться");
-            int r = ReadReplyNumber(2);
+            Console.WriteLine("3) Выход в главное меню");
+            int r = ReadReplyNumber(3);
             if (r == 0)
             {
                 List<XElement> ways = new List<XElement>();
@@ -131,7 +186,7 @@ class Program
                 r = ReadReplyNumber(ways.Count);
                 state.CurrentLoc = (int)ways[r].Attribute("to");
             }
-            else
+            else if (r == 1)
             {
                 // вывод всех персонажей в локации
                 List<XElement> characters = new List<XElement>();
@@ -155,6 +210,10 @@ class Program
                     state.NpcWeSpokeTo.Add(characterFile, false);
 
                 state.Save(savePath);
+            }
+            else
+            {
+                return;
             }
         }
     }
