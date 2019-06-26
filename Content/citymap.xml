@@ -159,6 +159,10 @@
 			<textl></textl>
 			<texts>Кухня</texts>
 			<way to="12">Это дверь через которую вы вошли</way>
+			<character link="повор">
+				<texts>Повар</texts>
+				<textl>какойто дядька стоит за плитой</textl>
+			</character>
 		</loc>
 	
 </map>

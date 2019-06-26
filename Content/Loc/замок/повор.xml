@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+	<node id="1">
+		<text>эй что ты тут делаешь?</text>
+		<reply give="18" item="18" quest="8" goto="2">можеш дать королю это особое вино?</reply>
+		<reply goto="3">а что вы тут готовите?</reply>
+		<reply>Извините,я не туда зшёл</reply>
+	</node>
+	
+	<node id="2">
+		<text>а что за вино?</text>
+		
+		<reply goto="4" quest="8" setquest="failed">это яд</reply>
+		<reply goto="5" quest="8" setquest="completed">это очень хорошое вино от местного винокура</reply>
+	</node>
+	
+	<node id="3">
+		<text>еду для его величества, что то ещё? </text>
+		<repiy>Спасибо до свидания.</repiy>
+		<repiy goto="1">да</repiy>
+	</node>
+	<node id="4">
+		<text>CТРАЖА</text>
+		<repiy>[бежать]</repiy>
+	</node>
+	<node id="5">
+		<text>хорошо местного винокура я знаю</text>
+		<repiy>Спасибо до свидания.</repiy>
+	</node>
+	</dialog>

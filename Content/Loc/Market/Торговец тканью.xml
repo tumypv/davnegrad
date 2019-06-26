@@ -52,7 +52,7 @@
 
 	<node id="8">
 		<text>Хорошо стоить будет 150 монет</text>
-		<reply price="150" id="13">Покупаю.</reply>
+		<reply price="150"  take="13">Покупаю.</reply>
 		<reply price_="150" goto="9">Можете снизить цену.</reply>
 	</node>
 
