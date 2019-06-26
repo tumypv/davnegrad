@@ -15,6 +15,7 @@ class GameState
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
+    public int CurrentLoc;
 
     //Загружаем сохранение
     public static GameState Load(string path)
@@ -96,6 +97,8 @@ class Program
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
+    static XElement xCityMap;
+
     static void Main(string[] args)
     {
         //var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
@@ -104,12 +107,14 @@ class Program
         //waveOut.Play();
         //state = GameState.Load(@"..\..\Save.xml");
 
-        XElement xCityMap = XElement.Load(citymapPath);
-        XElement xCurrentLoc = GetLocByID(xCityMap, 1);
+        xCityMap = XElement.Load(citymapPath);
+        state.CurrentLoc = 1;
 
         while (8 == 8)
         {
-            string text = xCurrentLoc.Element("texts").Value.Trim();
+            XElement xLoc = GetLocByID(xCityMap, state.CurrentLoc);
+
+            string text = xLoc.Element("texts").Value.Trim();
             Console.WriteLine("Вы находитесь: {0}.", text);
             Console.WriteLine("1) Уйти");
             Console.WriteLine("2) Осмотреться");
@@ -118,20 +123,20 @@ class Program
             {
                 List<XElement> ways = new List<XElement>();
                 // вывод всех путей в другие локации
-                foreach (XElement xWay in xCurrentLoc.Elements("way"))
+                foreach (XElement xWay in xLoc.Elements("way"))
                 {
                     ways.Add(xWay);
                     Console.WriteLine("{0}) {1}", ways.Count, xWay.Value.Trim());
                 }
                 r = ReadReplyNumber(ways.Count);
                 int wayToGoId = (int)ways[r].Attribute("to");
-                xCurrentLoc = GetLocByID(xCityMap, wayToGoId);
+                xLoc = GetLocByID(xCityMap, wayToGoId);
             }
             else
             {
                 // вывод всех персонажей в локации
                 List<XElement> characters = new List<XElement>();
-                foreach (XElement xCharacter in xCurrentLoc.Elements("character"))
+                foreach (XElement xCharacter in xLoc.Elements("character"))
                 {
                     characters.Add(xCharacter);
 
@@ -149,6 +154,7 @@ class Program
 
                 if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
                     state.NpcWeSpokeTo.Add(characterFile, false);
+
                 state.Save(savePath);
             }
         }
@@ -281,6 +287,12 @@ class Program
                     state.QuestState[quest.Value] = setquest;
                 else
                     state.QuestState.Add(quest.Value, setquest);
+            }
+
+            int? teleport = (int?)xreply.Attribute("teleport");
+            if (teleport != null)
+            {
+                state.CurrentLoc = teleport.Value;
             }
 
             int? take = (int?)xreply.Attribute("take");
