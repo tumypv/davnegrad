@@ -3,14 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
+enum QState
+{
+    accepted, completed, unknown, failed, reported
+}
+
 class GameState
 {
     public int Money = 0;
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
-    public Dictionary<int, bool> ReceivedQuest = new Dictionary<int, bool>();
+    public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
+    public int CurrentLoc;
 
+    //Загружаем сохранение
     public static GameState Load(string path)
     {
         GameState state = new GameState();
@@ -29,7 +36,7 @@ class GameState
         XElement xReceivedQuest = xLoad.Element("ReceivedQuest");
         foreach (XElement xQuest in xReceivedQuest.Elements())
         {
-            state.ReceivedQuest.Add((int)xQuest, false);
+        //    state.QuestState.Add((int)xQuest, false);
         }
         XElement xInventory = xLoad.Element("Inventory");
         foreach (XElement xItem in xInventory.Elements())
@@ -62,7 +69,7 @@ class GameState
 
         XElement xReceivedQuest = new XElement("ReceivedQuest");
         xSave.Add(xReceivedQuest);
-        foreach (int quest in ReceivedQuest.Keys)
+        foreach (int quest in QuestState.Keys)
         {
             XElement xQuest = new XElement("quest", quest);
             xReceivedQuest.Add(xQuest);
@@ -90,20 +97,24 @@ class Program
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
+    static XElement xCityMap;
+
     static void Main(string[] args)
     {
         //var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
         //var waveOut = new WaveOutEvent();
         //waveOut.Init(mp3Reader);
         //waveOut.Play();
-        state = GameState.Load(@"..\..\Save.xml");
+        //state = GameState.Load(@"..\..\Save.xml");
 
-        XElement xCityMap = XElement.Load(citymapPath);
-        XElement xCurrentLoc = GetLocByID(xCityMap, 1);
+        xCityMap = XElement.Load(citymapPath);
+        state.CurrentLoc = 1;
 
         while (8 == 8)
         {
-            string text = xCurrentLoc.Element("texts").Value.Trim();
+            XElement xLoc = GetLocByID(xCityMap, state.CurrentLoc);
+
+            string text = xLoc.Element("texts").Value.Trim();
             Console.WriteLine("Вы находитесь: {0}.", text);
             Console.WriteLine("1) Уйти");
             Console.WriteLine("2) Осмотреться");
@@ -112,20 +123,20 @@ class Program
             {
                 List<XElement> ways = new List<XElement>();
                 // вывод всех путей в другие локации
-                foreach (XElement xWay in xCurrentLoc.Elements("way"))
+                foreach (XElement xWay in xLoc.Elements("way"))
                 {
                     ways.Add(xWay);
                     Console.WriteLine("{0}) {1}", ways.Count, xWay.Value.Trim());
                 }
                 r = ReadReplyNumber(ways.Count);
                 int wayToGoId = (int)ways[r].Attribute("to");
-                xCurrentLoc = GetLocByID(xCityMap, wayToGoId);
+                xLoc = GetLocByID(xCityMap, wayToGoId);
             }
             else
             {
                 // вывод всех персонажей в локации
                 List<XElement> characters = new List<XElement>();
-                foreach (XElement xCharacter in xCurrentLoc.Elements("character"))
+                foreach (XElement xCharacter in xLoc.Elements("character"))
                 {
                     characters.Add(xCharacter);
 
@@ -143,6 +154,7 @@ class Program
 
                 if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
                     state.NpcWeSpokeTo.Add(characterFile, false);
+
                 state.Save(savePath);
             }
         }
@@ -200,7 +212,13 @@ class Program
             int? price_ = (int?)xr.Attribute("price_"); // сколько должно не быть денег, чтобы показать реплику
             int? flagset = (int?)xr.Attribute("flagset");
             int? flagnotset = (int?)xr.Attribute("flagnotset");
-            int? havequest = (int?)xr.Attribute("havequest");
+            int? quest = (int?)xr.Attribute("quest");
+
+            XAttribute xCheckquest = xr.Attribute("checkquest");
+            QState checkquest = xCheckquest != null
+                ? (QState)Enum.Parse(typeof(QState), xCheckquest.Value)
+                : QState.unknown;
+
             int? item = (int?)xr.Attribute("item");
             int? noitem = (int?)xr.Attribute("noitem");
 
@@ -220,7 +238,7 @@ class Program
                 )
                 &&
                 (
-                    havequest == null || state.ReceivedQuest.ContainsKey(havequest.Value)
+                    quest == null || xCheckquest == null || (state.QuestState.ContainsKey(quest.Value) && state.QuestState[quest.Value] == checkquest)
                 )
                 &&
                 (
@@ -258,8 +276,24 @@ class Program
                 state.GlobalFlags.Add(flag.Value, false);
 
             int? quest = (int?)xreply.Attribute("quest");
-            if (quest != null)
-                state.ReceivedQuest.Add(quest.Value, false);
+            XAttribute xSetquest = xreply.Attribute("setquest");
+            QState setquest = xSetquest != null
+                ? (QState)Enum.Parse(typeof(QState), xSetquest.Value)
+                : QState.unknown;
+
+            if (quest != null && xSetquest != null)
+            {
+                if (state.QuestState.ContainsKey(quest.Value))
+                    state.QuestState[quest.Value] = setquest;
+                else
+                    state.QuestState.Add(quest.Value, setquest);
+            }
+
+            int? teleport = (int?)xreply.Attribute("teleport");
+            if (teleport != null)
+            {
+                state.CurrentLoc = teleport.Value;
+            }
 
             int? take = (int?)xreply.Attribute("take");
             if (take != null)
