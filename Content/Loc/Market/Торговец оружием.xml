@@ -3,8 +3,9 @@
 	<node id="1">
 		<text>Путник покупай оружие да и броню тоже купи.</text>
 		<reply goto="2">Скoлько стоит кольчуга?</reply>
+		<reply goto="4">Скoлько стоит меч?</reply>
 		<reply goto="3">А откуда вы берёте оружие и браню?</reply>
-		<reply give="12" havequest="9" flag="11">Поменять вывеску.</reply>
+		<reply give="12" quest="9" cheсkquest="accepted" setquest="completed" flag="11">Поменять вывеску.</reply>
 		<reply>Извините, но мне не нужно.</reply>
 	</node>
 	
@@ -17,5 +18,11 @@
 	<node id="3">
 		<text>Я их беру у кузница который живет тут не подалёку.</text>
 		<repiy>Спасибо до свидания.</repiy>
+	</node>
+
+	<node id="4">
+		<text>Меч будет стоить 150 монет.</text>
+		<reply price="150" take="16">Купить.</reply>
+		<reply>Чуть позже прийду и куплю.</reply>
 	</node>
 	</dialog>

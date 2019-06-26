@@ -6,7 +6,7 @@
 		<reply havequest="500">Прикинь бармен дурак, повёлся на шутку!)</reply>
 		<reply goto="2">Это вы мастер гильдии?</reply>
 		<reply>Ничего.</reply>
-		<reply quest="4" checkquest="completed" setquest="reported">Всё я прогнал жабу.</reply>
+		<reply quest="4" checkquest="completed" setquest="reported" goto="9">Всё я убил жабу.</reply>
 	</node>
 
 	<node id="2">
@@ -50,6 +50,17 @@
 
 	<node id="8">
 		<text>У военных появились догадки что Эмрой это замаскираванная гильдия воров, но доказательств нету поэтому разузнай о Эмрое.</text>
-		<reply quest="6">Хорошо разузнаю.</reply>
+		<reply quest="6" setquest="accepted">Хорошо разузнаю.</reply>
+	</node>
+	
+	<node id="9">
+		<text>Хорошо постарался вот твая награда в рамере сотни монет</text>
+		<reply goto="10" givemoney="100">Спасибо я её забераю.</reply>
+	</node>
+	
+	<node id="10">
+		<text>Нехочешь ли вступить в гильдию приключенцев?</text>
+		<reply flag="1">Я вступлю в вашу гильдию.</reply>
+		<reply>Я пожалуй откажусь.</reply>
 	</node>
 </dialog>

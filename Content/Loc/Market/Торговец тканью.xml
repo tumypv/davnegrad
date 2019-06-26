@@ -4,7 +4,7 @@
 		<text>Подходите покупайте это самая лучшая ткань в больших городах продают за 10 монет, а я продам за 7 монет, такую низкую цену больше нигде не увидите.</text>
 		<reply goto="2">Какие ткани у вас есть?</reply>
 		<reply goto="7">А из готовых что-то есть?</reply>
-		<reply flagset="11" goto="14" >Я поменял вывеску.</reply>
+		<reply flagset="11" goto="14" quest="9" setquest="reported">Я поменял вывеску.</reply>
 		<reply>До свидания.</reply>
 	</node>
 	
@@ -37,7 +37,7 @@
 	</node>
 
 	<node id="6">
-		<text>Хотите купить бархатную ткань?</text>
+		<text>Хотите купить Бархатную ткань?</text>
 		<reply price="7">Купить</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>
@@ -70,7 +70,7 @@
 
 	<node id="11">
 		<text>Хотите купить наски за 1 монет?</text>
-		<reply price="1" id="16">Купить.</reply>
+		<reply price="1" id="7">Купить.</reply>
 		<reply>Хочу выбрать другой товар.</reply>
 	</node>
 
@@ -82,7 +82,7 @@
 
 	<node id="13">
 		<text>Поменяй вывеску у тарговца оружием и бранёй на вывеску садовый инструмент вилы и лопаты</text>
-		<reply take="12" quest="9">Хорошо сделаю.</reply>
+		<reply take="12" quest="9" setquest="accepted">Хорошо сделаю.</reply>
 	</node>
 
 	<node id="14">
