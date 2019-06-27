@@ -16,15 +16,16 @@
 	
 	<node id="3">
 		<text>еду для его величества, что то ещё? </text>
-		<repiy>Спасибо до свидания.</repiy>
+		<reply>Спасибо до свидания.</reply>
 		<repiy goto="1">да</repiy>
 	</node>
 	<node id="4">
 		<text>CТРАЖА</text>
-		<repiy>[бежать]</repiy>
+		<reply>[бежать]</reply>
 	</node>
 	<node id="5">
 		<text>хорошо местного винокура я знаю</text>
-		<repiy>Спасибо до свидания.</repiy>
-	</node>
+		<reply flag="13">Спасибо до свидания</reply>
+	
+</node>
 	</dialog>

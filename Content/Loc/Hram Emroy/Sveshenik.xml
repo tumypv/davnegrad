@@ -4,6 +4,7 @@
 	<text>Здравствуй, путник хочешь поднести что-то нашему богу?</text>
 	<reply goto="2">А вы даёте задания?</reply>
   <reply goto="500">А что за бог у вас?</reply>
+	<reply  flagset="13"  goto="20">я отровил короля</reply>
 	<reply>Нет, мне уже пора.</reply>
 </node>
 	<node id="1000">
@@ -56,8 +57,8 @@
 	<reply>Прикольно.</reply>
 	<reply goto="2">А у вас тут дают задания?</reply>
   </node>
-  <node>
-    <text id="11">Ну что достал меч?</text>
+	<node id="11">
+    <text>Ну что достал меч?</text>
     <reply flagset="7" goto="12">Да, было тяжело, но я справился.</reply>
     <reply>Нет, но я его пытаюсь достать.</reply>
   </node>
@@ -84,8 +85,9 @@
   </node>
   <node id="17">
     <text>Нужно свергнуть короля, тоесть убить!</text>
-    <reply quest="8">Хорошо я сделаю это ради нашего города!</reply>
+    <reply flagnotset="13" quest="8">Хорошо я сделаю это ради нашего города!</reply>
     <reply goto="18">Может есть более мирное решение?</reply>
+	  <reply flagset="13" goto="21">я уже отравил короля</reply>
   </node>
   <node id="18">
     <text>В таких делах мирных решений нет.</text>
@@ -128,5 +130,17 @@
 	<node id="6000">
 		<text>ну так иди детя моё до благославит тебя Эмрой</text>
 		<reply quest="8">хорошо</reply>
+	</node>
+	<node id="20">
+		<text>Честно говоря я думал что ты не справишся ,а теперь давай подождём</text>
+		<reply goto="21">Хорошо</reply>
+		
+
+	</node>
+	<node id="21">
+		<text>[через некоторее время ворвался гонец и рассказал что король помер]</text>
+		<reply gameover="killking">СЛАВА ЭМРОЮ !!!</reply>
+
+
 	</node>
 </dialog>

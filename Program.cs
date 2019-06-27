@@ -10,7 +10,7 @@ enum QState
 
 class GameState
 {
-    public int Money = 0;
+    public int Money = 999999;
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
@@ -145,14 +145,14 @@ class Program
 
     static void Center(string s, int line)
     {
-        var x = Console.BufferWidth / 2 - s.Length / 2;
+        int x = Console.BufferWidth / 2 - s.Length / 2;
         Console.SetCursorPosition(x, line);
         Console.WriteLine(s);
     }
 
     static void Right(string s, int line)
     {
-        var x = Console.BufferWidth - s.Length;
+        int x = Console.BufferWidth - s.Length;
         Console.SetCursorPosition(x, line);
         Console.WriteLine(s);
     }
