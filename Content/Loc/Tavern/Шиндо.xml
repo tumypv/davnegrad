@@ -7,6 +7,7 @@
 		<reply goto="2">Это вы мастер гильдии?</reply>
 		<reply>Ничего.</reply>
 		<reply quest="4" checkquest="completed" setquest="reported" goto="9">Всё я убил жабу.</reply>
+		<reply quest="5" checkquest="completed" setquest="reported" goto="12">Всё я собрал и отдал виноделу игредиенты.</reply>
 	</node>
 
 	<node id="2">
@@ -19,8 +20,8 @@
 
 	<node id="3">
 		<text>Хорошо выберай задание.</text>
-		<reply goto="4">Помочь фермеру Хиро.</reply>
-		<reply goto="5">Помочь винокурне собрать игридиенты.</reply>
+		<reply goto="4" quest="4" checkquest="unknown">Помочь фермеру Хиро.</reply>
+		<reply goto="5" quest="5" checkquest="unknown">Помочь винокурне собрать игридиенты.</reply>
 		<reply>Хорошо попозже прийду и выберу задание.</reply>
 	</node>
 
@@ -32,8 +33,8 @@
 
 	<node id="5">
 		<text>Винокурня просят помочь в соберании игредиентов для неё.</text>
-		<reply quest="5" setquest="accepted">Выбераю это задание.</reply>
-		<reply goto="3">выберать другое задание</reply>
+		<reply goto="11" quest="5" setquest="accepted">Выбераю это задание.</reply>
+		<reply goto="3">Выберать другое задание.</reply>
 	</node>
 
 	<node id="6">
@@ -54,13 +55,25 @@
 	</node>
 	
 	<node id="9">
-		<text>Хорошо постарался вот твая награда в рамере сотни монет</text>
-		<reply goto="10" givemoney="100">Спасибо я её забераю.</reply>
+		<text>Хорошо постарался вот твая награда в рамере сотни монет.</text>
+		<reply goto="10" givemoney="100" flagnotset="1">Спасибо я её забираю.</reply>
+		<reply givemoney="100" flagset="1">Спасибо я её забераю.</reply>
 	</node>
 	
 	<node id="10">
 		<text>Нехочешь ли вступить в гильдию приключенцев?</text>
 		<reply flag="1">Я вступлю в вашу гильдию.</reply>
 		<reply>Я пожалуй откажусь.</reply>
+	</node>
+	
+	<node id="11">
+		<text>Подробности о работе узнаете у Мастера винодела.</text>
+		<reply>Хорошо пойду к нему.</reply>
+	</node>
+	
+	<node>
+		<text>Хорошо постарался вот твая награда в размере двадцати пяти монет.</text>
+		<reply goto="10" givemoney="25" flagnotset="1">Спасибо я её забираю.</reply>
+		<reply givemoney="25" flagset="1">Спасибо я её забераю.</reply>
 	</node>
 </dialog>

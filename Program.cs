@@ -316,6 +316,11 @@ class Program
             int? item = (int?)xr.Attribute("item");
             int? noitem = (int?)xr.Attribute("noitem");
 
+            QState questState =
+                quest != null && state.QuestState.ContainsKey(quest.Value)
+                ? state.QuestState[quest.Value]
+                : QState.unknown;
+
             if (
                 (
                     (price == null && price_ == null)
@@ -332,7 +337,7 @@ class Program
                 )
                 &&
                 (
-                    quest == null || xCheckquest == null || (state.QuestState.ContainsKey(quest.Value) && state.QuestState[quest.Value] == checkquest)
+                    quest == null || xCheckquest == null || questState == checkquest
                 )
                 &&
                 (

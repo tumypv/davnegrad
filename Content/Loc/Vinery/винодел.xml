@@ -5,7 +5,9 @@
 		<reply goto="3">А кто ты?</reply>
 		<reply goto="2">Я хочу узнать про винокурню.</reply>
 		<reply>Простите я не туда зашёл.</reply>
-		<reply goto="4" cheсkquest="accepted"  quest="2">Я пришёл от Миколы что б починить котёл.</reply>
+		<reply goto="4" quest="2" cheсkquest="accepted">Я пришёл от Миколы что б починить котёл.</reply>
+		<reply goto="9" noitem="19" quest="5" cheсkquest="accepted">Я пришёл от гильдии приключенцев помочь собрать игредиенты.</reply>
+		<reply goto="10" give="19" item="19">Я принёс игредиенты.</reply>
 	</node>
 	<node id="2">
 		<text>Вопросы тут задою я.</text>
@@ -38,5 +40,13 @@
 	<node id="8">
 		<text>Этот меч эфиктивен только против зверолюдов. Я не могу отдать тебе такое оружие!</text>
 		<reply>Понятно, до свидания.</reply>
+	</node>
+	<node id="9">
+		<text>Хорошо иди на ферму там собери игдедиенты у фермера Хиро.</text>
+		<reply>Я пошёл.</reply>
+	</node>
+	<node id="10">
+		<text>Спасибо что помог можешь идти.</text>
+		<reply quest="5" setquest="completed ">Хорошо до свидания.</reply>
 	</node>
 </dialog>
