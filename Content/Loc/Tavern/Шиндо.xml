@@ -8,8 +8,8 @@
 		<reply>Ничего.</reply>
 		<reply quest="4" checkquest="completed" setquest="reported" goto="9">Всё я убил жабу.</reply>
 		<reply quest="5" checkquest="completed" setquest="reported" goto="12">Всё я собрал и отдал виноделу игредиенты.</reply>
+		<reply flagset="14" goto="13">Я разузнал от нищего (он был бывшим священиком Эмроя) что Эмрой это замаскированная гильдия воров.</reply>
 	</node>
-
 	<node id="2">
 		<text>Да, я мастер гильдии.</text>
 		<reply flagset="12" goto="3">Мне тут Мисаки сказала что я могу взять пробное задание.</reply>
@@ -17,63 +17,57 @@
 		<reply flagset="1" goto="7">Могу ли я вам чем-то помочь?</reply>
 		<reply>Хорошо до свидания.</reply>
 	</node>
-
 	<node id="3">
 		<text>Хорошо выберай задание.</text>
 		<reply goto="4" quest="4" checkquest="unknown">Помочь фермеру Хиро.</reply>
 		<reply goto="5" quest="5" checkquest="unknown">Помочь винокурне собрать игридиенты.</reply>
 		<reply>Хорошо попозже прийду и выберу задание.</reply>
 	</node>
-
 	<node id="4">
 		<text>Фермер по именем Хиро просит избавиться от гигантских жаб.</text>
 		<reply quest="4" setquest="accepted">Выбераю это задание.</reply>
 		<reply goto="3">Выбрать другое задание.</reply>
 	</node>
-
 	<node id="5">
 		<text>Винокурня просят помочь в соберании игредиентов для неё.</text>
 		<reply goto="11" quest="5" setquest="accepted">Выбераю это задание.</reply>
 		<reply goto="3">Выберать другое задание.</reply>
 	</node>
-
 	<node id="6">
 		<text>Предыдущий мастер беследно исчез, а лучшим кандидатом на место мастера был я. Но до этого я должен был пройти испытание. После этого я стал мастером.</text>
 		<reply goto="2">Вернуться к вопросам.</reply>
 		<reply>Понятно до свидания.</reply>
 	</node>
-
 	<node id="7">
 		<text>Если я тебе об этом раскажу то отказаться не сможешь лучше откажись прямо сейчас</text>
 		<reply>Я сейчас подумал и решил отказаться.</reply>
 		<reply goto="8">Берусь за задание.</reply>
 	</node>
-
 	<node id="8">
 		<text>У военных появились догадки что Эмрой это замаскираванная гильдия воров, но доказательств нету поэтому разузнай о Эмрое.</text>
 		<reply quest="6" setquest="accepted">Хорошо разузнаю.</reply>
 	</node>
-	
 	<node id="9">
 		<text>Хорошо постарался вот твая награда в рамере сотни монет.</text>
 		<reply goto="10" givemoney="100" flagnotset="1">Спасибо я её забираю.</reply>
 		<reply givemoney="100" flagset="1">Спасибо я её забераю.</reply>
 	</node>
-	
 	<node id="10">
 		<text>Нехочешь ли вступить в гильдию приключенцев?</text>
 		<reply flag="1">Я вступлю в вашу гильдию.</reply>
 		<reply>Я пожалуй откажусь.</reply>
 	</node>
-	
 	<node id="11">
 		<text>Подробности о работе узнаете у Мастера винодела.</text>
 		<reply>Хорошо пойду к нему.</reply>
 	</node>
-	
-	<node>
+	<node id="12">
 		<text>Хорошо постарался вот твая награда в размере двадцати пяти монет.</text>
 		<reply goto="10" givemoney="25" flagnotset="1">Спасибо я её забираю.</reply>
 		<reply givemoney="25" flagset="1">Спасибо я её забераю.</reply>
+	</node>
+	<node id="13">
+		<text>Хорошо постарался вот твая награда шестьдесят монет.</text>
+		<reply gamemoney="60">Спасибо я пошёл.</reply>
 	</node>
 </dialog>
