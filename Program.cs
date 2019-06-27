@@ -10,11 +10,12 @@ enum QState
 
 class GameState
 {
-    public int Money = 999999;
+    public int Money = 999999; 
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
     public Dictionary<int, int> Inventory = new Dictionary<int, int>();
+    public string GameOver = null;
     public int CurrentLoc;
 
     //Загружаем сохранение
@@ -172,7 +173,7 @@ class Program
         xCityMap = XElement.Load(citymapPath);
         state.CurrentLoc = 1;
 
-        while (8 == 8)
+        while (state.GameOver == null)
         {
             XElement xLoc = GetLocByID(xCityMap, state.CurrentLoc);
 
@@ -233,6 +234,7 @@ class Program
                             break;
                         }
                 }
+                Console.WriteLine("Монеты - {0} шт.", state.Money);
 
             }
             else if (r == 3)
@@ -252,6 +254,13 @@ class Program
                 return;
             }
         }
+
+        ShowEnding();
+    }
+
+    private static void ShowEnding()
+    {
+
     }
 
     private static XElement LoadCharacter(string fileName)
@@ -304,9 +313,9 @@ class Program
         {
             int? price = (int?)xr.Attribute("price"); // сколько нужно денег, чтобы показать реплику
             int? price_ = (int?)xr.Attribute("price_"); // сколько должно не быть денег, чтобы показать реплику
-            int? flagset = (int?)xr.Attribute("flagset");
-            int? flagnotset = (int?)xr.Attribute("flagnotset");
-            int? quest = (int?)xr.Attribute("quest");
+            int? flagset = (int?)xr.Attribute("flagset");// проверка установлен ли флаг
+            int? flagnotset = (int?)xr.Attribute("flagnotset");// проверка не установлен ли флаг
+            int? quest = (int?)xr.Attribute("quest");// номер квеста
 
             XAttribute xCheckquest = xr.Attribute("checkquest");
             QState checkquest = xCheckquest != null
@@ -387,6 +396,14 @@ class Program
                 else
                     state.QuestState.Add(quest.Value, setquest);
             }
+
+            int? givemoney = (int?)xreply.Attribute("givemoney");//выдача денег
+            if (givemoney != null)
+            {
+                state.Money += givemoney.Value;
+            }
+
+            state.GameOver = (string)xreply.Attribute("gameover");// game over
 
             int? teleport = (int?)xreply.Attribute("teleport");
             if (teleport != null)

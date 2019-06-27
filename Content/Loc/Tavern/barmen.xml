@@ -6,7 +6,7 @@
     <reply goto="2" price_="3">Я бы рад попробовать, но у меня нет денег.</reply>
     <reply goto="12" flag="100" flagnotset="100" take="100" >Может быть есть кая-нибудь работа?</reply>
     <reply goto="11" flagset="100">Я бы предпочёл водички.</reply>
-    <reply>Спасибо, ничего, зайду в другой раз.</reply>
+    <reply givemoney="1">Спасибо, ничего, зайду в другой раз.</reply>
   </node>
   
   <node id="2">
@@ -73,16 +73,16 @@
     </node>
 	<node id="12">
 		<text>На отнеси стакан воды Шиндо.</text>
-		<reply quest="100" setquest="accepted">Хорошо, подожди одну минуту.</reply>
+		<reply quest="100" setquest="accepted" goto="13">Хорошо, подожди одну минуту.</reply>
 	    <reply goto="2">Нет, спасибо.</reply>
     </node>
-	<node>
+	<node id="13">
 		<text>Ну что отнёс?</text>
-		<reply quest="100" checkquest="completed" goto="13">Да, я отнёс.</reply>
+		<reply quest="100" checkquest="completed" goto="14">Да, я отнёс.</reply>
 		<reply quest="100" checkquest="accepted">Я работаю над этим.</reply>
 	</node>
-	<node>
-		<text setquest="reported">Молодец</text>
-		<reply goto="2">Ага, спасибо)</reply>
+	<node id="14">
+		<text>Молодец, возьми монетку</text>
+		<reply goto="2" givemoney="1" gameover="killking" setquest="reported">Ага, спасибо)</reply>
 	</node>
 </dialog>
