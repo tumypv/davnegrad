@@ -97,7 +97,11 @@ class Program
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
+    static string itrmsPath = @"..\..\Content\Itrms.xml";
+    static string questPath = @"..\..\Content\Quests.xml";
     static XElement xCityMap;
+    static XElement xItems;
+    static XElement xListQuest;
 
     static void Main(string[] args)
     {
@@ -109,18 +113,22 @@ class Program
         //waveOut.Init(mp3Reader);
         //waveOut.Play();
 
+        xItems = XElement.Load(itrmsPath);
+        xListQuest = XElement.Load(questPath);
+
         while (8 == 8)
         {
             Console.Clear();
             Center("ЛЕТНЯЯ ПРОЕКТНАЯ АКАДЕМИЯ", 2);
-            Center("Мастерская: Текстовое приключение", 4);
+            Center("МАСТЕРСКАЯ: ТЕКСТОВОЕ ПРИКЛЮЧЕНИЕ", 4);
             Center("ПРИКЛЮЧЕНИЯ В ДАВНЕГРАДЕ", 6);
-            Right("Разработчики:   ", 8);
-            Right("Егор Деревягин  ", 9);
-            Right("Юрий Фролов     ", 10);
-            Right("Виктор Тюмереков", 11);
-            Right("Мастер:         ", 12);
-            Right("Тимур Вишняков  ", 13);
+            Right("Разработчики:    ", 8);
+            Right("Егор Деревягин   ", 9);
+            Right("Юрий Фролов      ", 10);
+            Right("Виктор Тюмереков ", 11);
+            Right("Александр Моисеев", 12);
+            Right("Мастер:          ", 13);
+            Right("Тимур Вишняков   ", 14);
             Center("Абакан 2019", 24);
             Center("1. НОВАЯ ИГРА", 10);
             Center("2. ПРОДОЛЖИТЬ ИГРУ", 12);
@@ -172,8 +180,10 @@ class Program
             Console.WriteLine("Вы находитесь: {0}.", text);
             Console.WriteLine("1) Уйти");
             Console.WriteLine("2) Осмотреться");
-            Console.WriteLine("3) Выход в главное меню");
-            int r = ReadReplyNumber(3);
+            Console.WriteLine("3) Инвентарь");
+            Console.WriteLine("4) Квесты");
+            Console.WriteLine("5) Выход в главное меню");
+            int r = ReadReplyNumber(5);
             if (r == 0)
             {
                 List<XElement> ways = new List<XElement>();
@@ -210,6 +220,32 @@ class Program
                     state.NpcWeSpokeTo.Add(characterFile, false);
 
                 state.Save(savePath);
+            }
+            else if (r == 2)
+            {
+                foreach (int itemId in state.Inventory.Keys)
+                {
+                    int q = state.Inventory[itemId];
+                    foreach (XElement xItem in xItems.Elements())
+                        if ((int)xItem.Attribute("id") == itemId)
+                        {
+                            Console.WriteLine("{0} - {1} шт.", (string)xItem, q);
+                            break;
+                        }
+                }
+
+            }
+            else if (r == 3)
+            {
+                foreach (int QuestId in state.QuestState.Keys)
+                {
+                    foreach (XElement xQuest in xListQuest.Elements())
+                        if ((int)xQuest.Attribute("id") == QuestId)
+                        {
+                            Console.WriteLine("{0}", (string)xQuest);
+                            break;
+                        }
+                }
             }
             else
             {

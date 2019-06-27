@@ -71,18 +71,18 @@
 		<reply goto="3">Я здесь новенький, можете мне рассказать о городе?</reply>
 		<reply goto="4">Есть какие-нибудь интересные новости?</reply>
     </node>
-	<node>
+	<node id="12">
 		<text>На отнеси стакан воды Шиндо.</text>
-		<reply quest="100">Хорошо, подожди одну минуту.</reply>
+		<reply quest="100" setquest="accepted">Хорошо, подожди одну минуту.</reply>
 	    <reply goto="2">Нет, спасибо.</reply>
     </node>
 	<node>
 		<text>Ну что отнёс?</text>
-		<reply isquestover="100" goto="13">Да, я отнёс.</reply>
-		<reply isquestnotover="100">Я работаю над этим.</reply>
+		<reply quest="100" checkquest="completed" goto="13">Да, я отнёс.</reply>
+		<reply quest="100" checkquest="accepted">Я работаю над этим.</reply>
 	</node>
 	<node>
-		<text>Молодец</text>
+		<text setquest="reported">Молодец</text>
 		<reply goto="2">Ага, спасибо)</reply>
 	</node>
 </dialog>
