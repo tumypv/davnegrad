@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <dialog>
 	<node id="1">
-		<text>Чо нада?![лежит на кровати в состоянии алкогольного опьянения] </text>
+		<text>Чё нада?![лежит на кровати в состоянии алкогольного опьянения] </text>
 		<reply goto="2" flag="23" flagnotset="23">[Вылить ведро воды]</reply>
     <reply flagset="4" goto="2000">Я всё узнал.</reply>
     <reply goto="1000" flagset="23" flag="26" flagnotset="26" item="1">Это я.</reply>
@@ -33,7 +33,7 @@
 	</node>
 	<node id="7">
 		<text>Если дашь, то я ещё подумаю</text>
-		<reply give="1" item="1" goto="8">[Дать бутылку еля]</reply>
+		<reply give="1" item="1" goto="8">[Дать бутылку эля]</reply>
 		<reply noitem="1">Подожди я схожу за бутылкой эля </reply>
 	</node>
 	<node id="8">
