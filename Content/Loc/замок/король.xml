@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+	<node id="1">
+		<text>[вокруг много стражи]что тебе нужно</text>
+		<reply goto="2">я узнал что Эмрой на самом деле не церковь а гильдия воров</reply>
+		<reply flag="16" setquest="completed" quest="11" goto="3">я принёс петицию от зверолюдов</reply>
+		<reply gameover="killking">[броситься на короля и покончить жизнь самоубийством] ЗА ЭМРОЙ!!!</reply>
+		<reply>нет ,простите я ошибся.</reply>
+	</node> 
+
+	<node id="2">
+		<text>прекрасно теперь можно их казнить [король радосно улыбнулся]</text>
+		<reply gameover="expose">...</reply>
+	</node>
+	<node id="3">
+		<text>дай взглянуть [корорль взял питицию и почитавт не много подписал её] что то ещё</text>
+		<reply goto="2" setquest="completed" quest="11">да я узнал что Эмрой на самом деле не церковь а гильдия воров</reply>
+		<reply>досвидания</reply>
+
+	</node>
+</dialog>

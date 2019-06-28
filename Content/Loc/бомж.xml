@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+	<node id="1">
+		<text>о привет путник не подашь старечку на еду</text>
+		<reply price_="10">прости да сам в деньках нуждаюсь</reply>
+		<reply goto="2" price="10">на дедуль</reply>
+		<reply goto="3">а как ты тдо токого до катился</reply>
+		<reply>нет ,простите я ошибся .</reply>
+	</node>
+
+	<node id="2">
+		<text>о спасибо добрый человек</text>
+		<reply goto="4">а зовут тебя как</reply>
+	</node>
+	<node id="3">
+		<text>я был свещенником в одной не без известной церкви ,а потом церковь розарили</text>
+		<reply>ясно</reply>
+	
+
+	</node>
+	<node id="4">
+		<text>а зовут меня Александр</text>
+		<reply setquest="completed" quest="6" goto="6">что можешь рассказать про церковь Эмроя</reply>
+		<reply>спасибо</reply>
+    </node>
+	
+	<node id="6">
+		<text>а раньше я там был свещенником но кстати насамом деле это гильдия ворорв они нагло прикидываются гильдией воров</text>
+		<reply>спасибо</reply>
+	</node>
+</dialog>
