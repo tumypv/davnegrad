@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+	<node id="1">
+		<text>Судя по чистому надгробнуму камню эта магила новая.</text>
+		<reply goto="2" item="3">[Раскопать могилу].</reply>
+		<reply goto="6" noitem="3">[Раскопать могилу].</reply>
+		<reply>[Уйти].</reply>
+	</node>
+	<node id="2">
+		<text>Вы нашли в магиле 20 монет, 5 клочков ткани и скелет.</text>
+		<reply goto="3" givemoney="20" flag="17" flagnotset="17">[Взять монеты].</reply>
+		<reply goto="4" take="20" flag="18" flagnotset="18">[Взять клачок ткани].</reply>
+		<reply goto="5" take="21" flag="19" flagnotset="19">[Взять скелет].</reply>
+	</node>
+	<node id="3">
+		<text>Вы взяли 20 монет.</text>
+		<reply goto="2">[Взять что-то ещё].</reply>
+		<reply>[Уйти].</reply>
+	</node>
+	<node id="4">
+		<text>Вы взяли клачок ткани.</text>
+		<reply goto="2">[Взять что-то ещё].</reply>
+		<reply>[Уйти].</reply>
+	</node>
+	<node id="5">
+		<text>Вы взяли скелет.</text>
+		<reply goto="2">[Взять что-то ещё].</reply>
+		<reply>[Уйти].</reply>
+	</node>
+	<node id="6">
+		<text>Я бы раскопал могилу если была лопата.</text>
+		<reply>[Уйти].</reply>
+	</node>
+
+</dialog>
