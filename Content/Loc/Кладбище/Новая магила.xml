@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+	<node id="1">
+		<text>Судя по недавно скопанной земли эта магила новая.</text>
+		<reply goto="2">[Расклпать магилу].</reply>
+		<reply>[Уйти].</reply>
+	</node>
+	<node id="2">
+		<text>Вы нашли в магиле 20 монет, 5 клочков ткани и скелет.</text>
+		<reply goto="3" givemoney="20" flag="17" flagnotset="17">Взять монеты.</reply>
+		<reply goto="4" take="20" flag="20" flagnotset="">Взять клачок ткани.</reply>
+		<reply goto="5" take="21" flag="21" flagnotset="">Взять скелет.</reply>
+	</node>
+	<node id="2">
+		
+	</node>
+</dialog>

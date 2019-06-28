@@ -7,9 +7,8 @@
 		<reply flagset="11" goto="14" quest="9" setquest="reported">Я поменял вывеску.</reply>
 		<reply>До свидания.</reply>
 	</node>
-	
 	<node id="2">
-		<text>Есть шолковая ткань за 4 монет, нихромовая за 6, простая за 2, бархатная за 7</text>
+		<text>Есть шолковая ткань за 4 монет, нихромовая за 6, простая за 2, бархатная за 7.</text>
 		<reply goto="3">Шолковая ткань.</reply>
 		<reply goto="4">Нихромовая ткань.</reply>
 		<reply goto="5">Простая ткань.</reply>
@@ -17,31 +16,26 @@
 		<reply goto="1">У меня есть ещё вопросы.</reply>
 		<reply>Спасибо что расказали какая ткань есть до свидания.</reply>
 	</node>
-
 	<node id="3">
 		<text>Хотите купить Шолкувую ткань?</text>
-		<reply price="4">Купить</reply>
+		<reply price="4">Купить.</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>
-
 	<node id="4">
 		<text>Хотите купить Нихромувую ткань?</text>
-		<reply price="6">Купить</reply>
+		<reply price="6">Купить.</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>
-
 	<node id="5">
 		<text>Хотите купить Простую ткань?</text>
-		<reply price="2">Купить</reply>
+		<reply price="2">Купить.</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>
-
 	<node id="6">
 		<text>Хотите купить Бархатную ткань?</text>
-		<reply price="7">Купить</reply>
+		<reply price="7">Купить.</reply>
 		<reply goto="2">Я выберу другую ткань.</reply>
 	</node>
-
 	<node id="7">
 		<text>Есть выберай.</text>
 		<reply goto="8">Коврик.</reply>
@@ -49,45 +43,38 @@
 		<reply goto="11">Наски.</reply>
 		<reply goto="12">Штаны.</reply>
 	</node>
-
 	<node id="8">
-		<text>Хорошо стоить будет 150 монет</text>
+		<text>Хорошо стоить будет 150 монет.</text>
 		<reply price="150"  take="13">Покупаю.</reply>
 		<reply price_="150" goto="9">Можете снизить цену.</reply>
 	</node>
-
 	<node id="9">
 		<text>Могу если выполниш моё задание.</text>
 		<reply goto="13">Расказывай.</reply>
 		<reply>Подзаработаю и прийду.</reply>
 	</node>
-
 	<node id="10">
 		<text>Хотите купить футболку за 9 монет?</text>
 		<reply price="9" id="14">Купить.</reply>
 		<reply>Хочу выбрать другой товар.</reply>
 	</node>
-
 	<node id="11">
 		<text>Хотите купить наски за 1 монет?</text>
 		<reply price="1" id="7">Купить.</reply>
 		<reply>Хочу выбрать другой товар.</reply>
 	</node>
-
 	<node id="12">
 		<text>Хотите купить штаны за 8 монет?</text>
 		<reply price="8" id="15">Купить.</reply>
 		<reply>Хочу выбрать другой товар.</reply>
 	</node>
-
 	<node id="13">
-		<text>Поменяй вывеску у тарговца оружием и бранёй на вывеску садовый инструмент вилы и лопаты</text>
+		<text>Поменяй вывеску у тарговца оружием и бранёй на вывеску садовый инструмент вилы и лопаты.</text>
 		<reply take="12" quest="9" setquest="accepted">Хорошо сделаю.</reply>
 	</node>
-
 	<node id="14">
 		<text>Ну ка посмотрим. И правда поменял. Хорошо, продам коврик за 75 монет.</text>
-		<reply take="13" price="75">Купить</reply>
+		<reply take="13" price="75">Купить.</reply>
 		<reply>Извините денег по ка что нет потом прийду и куплю.</reply>
 	</node>
 </dialog>

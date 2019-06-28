@@ -15,8 +15,10 @@
 	</node>
 	<node id="3">
 		<text>а что, ты коврами торгуеш?</text>
-		<reply quest="10">да сейчас принесу</reply>
-		<reply teleport="16" item="13" give="13">вот держи</reply>
+		<reply quest="10" checkquest="unknown" setquest="accepted">да сейчас принесу</reply>
+		<reply quest="10" checkquest="accepted" noitem="13">Всё ещё несу.</reply>
+		<reply teleport="16" item="13" give="13" quest="10" setquest="reported">вот держи</reply>
+		<reply teleport="16" quest="10" checkquest="reported">вот держи</reply>
 
 	</node>
 	<node id="1000">
@@ -25,7 +27,7 @@
 		<reply haveqvest="11" item="17">я с петицией от зверолюдов</reply>
 		<reply goto="2" price_="7">пропусти меня холоп</reply>
 		<reply goto="2" price="7">пропусти меня холоп</reply>
-		<reply goto="3">я вижу что у вас истреталась ковровя дорожка...</reply>
+		<reply goto="3">я вижу, что у вас истреталась ковровя дорожка...</reply>
 		<reply>нет ,простите я ошибся .</reply>
 
 
