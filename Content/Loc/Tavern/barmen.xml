@@ -4,10 +4,10 @@
     <text>Что будете пить? У нас есть отличный эль!</text>
     <reply goto="2" price="3">Давайте попробуем ваш хвалёный эль.</reply>
     <reply goto="2" price_="3">Я бы рад попробовать, но у меня нет денег.</reply>
-    <reply goto="7" quest="1" checkquest="accepted" flagset="4">Я бы предпочёл водички</reply>
+    <reply goto="7" flagnotset="4" quest="1" checkquest="accepted">Я бы предпочёл водички</reply>
     <reply goto="12" flag="100" flagnotset="100" take="100" >Может быть есть кая-нибудь работа?</reply>
-    <reply flagset="100" goto="13">Я по работе</reply>
-    <reply>Спасибо, ничего, зайду в другой раз.</reply>
+    <reply flagset="100" goto="13" flag="27" flagnotset="27">Я по работе</reply>
+    <reply take="1">Спасибо, ничего, зайду в другой раз.</reply>
   </node>
   
   <node id="2">
@@ -60,12 +60,6 @@
 		<text>Точно не понмю в каком доме, но помню что они жтивут на ферме</text>
 		<reply flag="4" quest="1" setquest="completed">Спасибо за информацию, до скорых встреч!</reply>
 	</node>
-    <node id="11">
-    <text>У меня тут что, водокачка?</text>
-		<reply quest="500">Хотите чтоб была?</reply>
-		<reply goto="3">Я здесь новенький, можете мне рассказать о городе?</reply>
-		<reply goto="4">Есть какие-нибудь интересные новости?</reply>
-    </node>
 	<node id="12">
 		<text>На отнеси стакан воды Шиндо.</text>
 		<reply quest="100" setquest="accepted">Хорошо, подожди одну минуту.</reply>

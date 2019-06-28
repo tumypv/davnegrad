@@ -189,8 +189,11 @@ class Program
 
             string text = xLoc.Element("texts").Value.Trim();
             Console.WriteLine("Вы находитесь: {0}.", text);
+            foreach (XElement xCharacter in xLoc.Elements("character"))
+                Console.WriteLine(xCharacter.Element("textl").Value.Trim());
+
             Console.WriteLine("1) Уйти");
-            Console.WriteLine("2) Осмотреться");
+            Console.WriteLine("2) Подойти к...");
             Console.WriteLine("3) Инвентарь");
             Console.WriteLine("4) Квесты");
             Console.WriteLine("5) Выход в главное меню");
@@ -217,10 +220,7 @@ class Program
 
                     string characterDescription;
                     string link = xCharacter.Attribute("link").Value.Trim();
-                    if (state.NpcWeSpokeTo.ContainsKey(link))
-                        characterDescription = xCharacter.Element("texts").Value.Trim();
-                    else
-                        characterDescription = xCharacter.Element("textl").Value.Trim();
+                    characterDescription = xCharacter.Element("texts").Value.Trim();
                     Console.WriteLine("{0}) {1}", characters.Count, characterDescription);
                 }
                 r = ReadReplyNumber(characters.Count);
@@ -329,12 +329,13 @@ class Program
         return choiceN - 1;
     }
 
-    private static List<XElement> ShowDialogNode(XElement xCurrentNode)
+    private static XElement ShowDialogNode(XElement xCurrentNode)
     {
         XElement xtext = xCurrentNode.Element("text");
         Console.WriteLine(xtext.Value);
         IEnumerable<XElement> xreplies = xCurrentNode.Elements("reply");
         List<XElement> repliesList = new List<XElement>();
+
         foreach (XElement xr in xreplies)
         {
             if (CheckAttributes(xr))
@@ -344,7 +345,12 @@ class Program
             }
         }
 
-        return repliesList;
+        int choiceN = ReadReplyNumber(repliesList.Count);
+
+
+
+        XElement xreply = repliesList[choiceN];
+        return xreply;
     }
 
     private static bool CheckAttributes(XElement xReply)
@@ -392,9 +398,8 @@ class Program
 
         while (8 == 8)
         {
-            List<XElement> repliesList = ShowDialogNode(xCurrentNode);
-            int choiceN = ReadReplyNumber(repliesList.Count);
-            XElement xreply = repliesList[choiceN];
+            XElement xreply = ShowDialogNode(xCurrentNode);
+                        
             int? flag = (int?)xreply.Attribute("flag");
             if (flag != null)
                 state.GlobalFlags.Add(flag.Value, false);

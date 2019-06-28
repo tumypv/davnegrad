@@ -3,7 +3,6 @@
 	<node id="1">
 		<text>Что-то хотели?</text>
 		<reply item="100" give="100" quest="100" setquest="completed">Вот тебе водички, не благодари!</reply>
-		<reply havequest="500">Прикинь бармен дурак, повёлся на шутку!)</reply>
 		<reply goto="2">Это вы мастер гильдии?</reply>
 		<reply>Ничего.</reply>
 		<reply quest="4" checkquest="completed" setquest="reported" goto="9">Всё я убил жабу.</reply>
