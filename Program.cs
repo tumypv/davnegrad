@@ -10,7 +10,7 @@ enum QState
 
 class GameState
 {
-    public int Money = 999999; 
+    public int Money = 999999;
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
@@ -45,6 +45,9 @@ class GameState
             int id = (int)xItem.Attribute("id");
             state.Inventory.Add(id, (int)xItem);
         }
+
+        XElement xMoney = xLoad.Element("Money");
+        state.Money = (int)xMoney; 
 
         return state;
     }
@@ -87,6 +90,9 @@ class GameState
             xItem.Add(xQ);
         }
 
+        XElement xMoney = new XElement("Money", Money);
+        xSave.Add(xMoney);
+
         xSave.Save(path);
     }
 
@@ -94,12 +100,14 @@ class GameState
 
 class Program
 {
-    static GameState state = new GameState();
+    static GameState state;
     static string locationPath = @"..\..\Content\Loc";
     static string citymapPath = @"..\..\Content\citymap.xml";
     static string savePath = @"..\..\Save.xml";
     static string itrmsPath = @"..\..\Content\Itrms.xml";
     static string questPath = @"..\..\Content\Quests.xml";
+    static string endingsPath = @"..\..\Content\Endings.xml";
+    static XElement xEndings;
     static XElement xCityMap;
     static XElement xItems;
     static XElement xListQuest;
@@ -116,6 +124,7 @@ class Program
 
         xItems = XElement.Load(itrmsPath);
         xListQuest = XElement.Load(questPath);
+        xEndings = XElement.Load(endingsPath);
 
         while (8 == 8)
         {
@@ -138,6 +147,7 @@ class Program
             int e = ReadReplyNumber(3);
             if (e == 0)
             {
+                state = new GameState();
                 PlayGame();
             }
             else if (e == 1)
@@ -260,7 +270,23 @@ class Program
 
     private static void ShowEnding()
     {
+        XElement xEnding = null;
+        foreach (XElement xEnding0 in xEndings.Elements())
+            if ((string)xEnding0.Attribute("id") == state.GameOver)
+            {
+                xEnding = xEnding0;
+                break;
+            }
 
+        foreach (XElement xText in xEnding.Elements())
+        {
+            if (CheckAttributes(xText))
+                Console.WriteLine(xText.Value.Trim());
+        }
+
+        System.Threading.Thread.Sleep(5000);
+        Console.WriteLine("[нажмите любую клавишу для продолжения]");
+        Console.ReadKey();
     }
 
     private static XElement LoadCharacter(string fileName)
@@ -311,52 +337,7 @@ class Program
         List<XElement> repliesList = new List<XElement>();
         foreach (XElement xr in xreplies)
         {
-            int? price = (int?)xr.Attribute("price"); // сколько нужно денег, чтобы показать реплику
-            int? price_ = (int?)xr.Attribute("price_"); // сколько должно не быть денег, чтобы показать реплику
-            int? flagset = (int?)xr.Attribute("flagset");// проверка установлен ли флаг
-            int? flagnotset = (int?)xr.Attribute("flagnotset");// проверка не установлен ли флаг
-            int? quest = (int?)xr.Attribute("quest");// номер квеста
-
-            XAttribute xCheckquest = xr.Attribute("checkquest");
-            QState checkquest = xCheckquest != null
-                ? (QState)Enum.Parse(typeof(QState), xCheckquest.Value)
-                : QState.unknown;
-
-            int? item = (int?)xr.Attribute("item");
-            int? noitem = (int?)xr.Attribute("noitem");
-
-            QState questState =
-                quest != null && state.QuestState.ContainsKey(quest.Value)
-                ? state.QuestState[quest.Value]
-                : QState.unknown;
-
-            if (
-                (
-                    (price == null && price_ == null)
-                    || (price != null && price.Value <= state.Money)
-                    || (price_ != null && price_.Value > state.Money)
-                )
-                &&
-                (
-                    flagset == null || state.GlobalFlags.ContainsKey(flagset.Value)
-                )
-                &&
-                (
-                    flagnotset == null || !state.GlobalFlags.ContainsKey(flagnotset.Value)
-                )
-                &&
-                (
-                    quest == null || xCheckquest == null || questState == checkquest
-                )
-                &&
-                (
-                    item == null || state.Inventory.ContainsKey(item.Value)
-                )
-                &&
-                (
-                    noitem == null || !state.Inventory.ContainsKey(item.Value)
-                )
-            )
+            if (CheckAttributes(xr))
             {
                 Console.WriteLine("{0}) {1}", repliesList.Count + 1, xr.Value);
                 repliesList.Add(xr);
@@ -364,6 +345,41 @@ class Program
         }
 
         return repliesList;
+    }
+
+    private static bool CheckAttributes(XElement xReply)
+    {
+        int? price = (int?)xReply.Attribute("price"); // сколько нужно денег, чтобы показать реплику
+        int? price_ = (int?)xReply.Attribute("price_"); // сколько должно не быть денег, чтобы показать реплику
+        int? flagset = (int?)xReply.Attribute("flagset");// проверка установлен ли флаг
+        int? flagnotset = (int?)xReply.Attribute("flagnotset");// проверка не установлен ли флаг
+        int? quest = (int?)xReply.Attribute("quest");// номер квеста
+
+        XAttribute xCheckquest = xReply.Attribute("checkquest");
+        QState checkquest = xCheckquest != null
+            ? (QState)Enum.Parse(typeof(QState), xCheckquest.Value)
+            : QState.unknown;
+
+        int? item = (int?)xReply.Attribute("item");
+        int? noitem = (int?)xReply.Attribute("noitem");
+
+        QState questState =
+            quest != null && state.QuestState.ContainsKey(quest.Value)
+            ? state.QuestState[quest.Value]
+            : QState.unknown;
+
+        bool _price = (price == null && price_ == null)
+                || (price != null && price.Value <= state.Money)
+                || (price_ != null && price_.Value > state.Money);
+
+        bool _flagset = flagset == null || state.GlobalFlags.ContainsKey(flagset.Value);
+        bool _flagnotset = flagnotset == null || !state.GlobalFlags.ContainsKey(flagnotset.Value);
+        bool _quest = quest == null || xCheckquest == null || questState == checkquest;
+        bool _item = item == null || state.Inventory.ContainsKey(item.Value);
+        bool _noitem = noitem == null || !state.Inventory.ContainsKey(noitem.Value);
+
+        return _price && _flagset && _flagnotset && _quest && _item && _noitem;
+
     }
 
     /// <summary>
@@ -404,6 +420,7 @@ class Program
             }
 
             state.GameOver = (string)xreply.Attribute("gameover");// game over
+            if (state.GameOver != null) return;
 
             int? teleport = (int?)xreply.Attribute("teleport");
             if (teleport != null)

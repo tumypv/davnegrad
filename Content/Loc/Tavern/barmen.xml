@@ -4,9 +4,10 @@
     <text>Что будете пить? У нас есть отличный эль!</text>
     <reply goto="2" price="3">Давайте попробуем ваш хвалёный эль.</reply>
     <reply goto="2" price_="3">Я бы рад попробовать, но у меня нет денег.</reply>
+    <reply goto="7" quest="1" checkquest="accepted" flagset="4">Я бы предпочёл водички</reply>
     <reply goto="12" flag="100" flagnotset="100" take="100" >Может быть есть кая-нибудь работа?</reply>
-    <reply goto="11" flagset="100">Я бы предпочёл водички.</reply>
-    <reply givemoney="1">Спасибо, ничего, зайду в другой раз.</reply>
+    <reply flagset="100" goto="13">Я по работе</reply>
+    <reply>Спасибо, ничего, зайду в другой раз.</reply>
   </node>
   
   <node id="2">
@@ -41,12 +42,6 @@
     </text>
     <reply>Спасибо, я узнал всё, что хотел.</reply>
   </node>
-	<node id="6">
-		<text>Что налить? Может быть виски?</text>
-		<reply goto="7">Налейка мне эля</reply>
-		<reply goto="7">А давайте виски!</reply>
-		<reply>Мне нужно идти, досвидания.</reply>
-	</node>
 	<node id="7">
 		<text>Может ещё чего-то?</text>
 		<reply goto="8">Можешь рассказать что произошло на фестивале богини урожая полгода назад? Ты тогда был с кузнецом и его
@@ -63,7 +58,7 @@
 	</node>
 	<node id="10">
 		<text>Точно не понмю в каком доме, но помню что они жтивут на ферме</text>
-		<reply flag="4">Спасибо за информацию, до скорых встреч!</reply>
+		<reply flag="4" quest="1" setquest="completed">Спасибо за информацию, до скорых встреч!</reply>
 	</node>
     <node id="11">
     <text>У меня тут что, водокачка?</text>
@@ -73,7 +68,7 @@
     </node>
 	<node id="12">
 		<text>На отнеси стакан воды Шиндо.</text>
-		<reply quest="100" setquest="accepted" goto="13">Хорошо, подожди одну минуту.</reply>
+		<reply quest="100" setquest="accepted">Хорошо, подожди одну минуту.</reply>
 	    <reply goto="2">Нет, спасибо.</reply>
     </node>
 	<node id="13">
@@ -83,6 +78,6 @@
 	</node>
 	<node id="14">
 		<text>Молодец, возьми монетку</text>
-		<reply goto="2" givemoney="1" gameover="killking" setquest="reported">Ага, спасибо)</reply>
+		<reply goto="2" givemoney="1" setquest="reported">Ага, спасибо)</reply>
 	</node>
 </dialog>
