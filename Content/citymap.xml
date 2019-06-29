@@ -139,6 +139,10 @@
 			<texts>Винодел.</texts>
 			<textl>Перед вами стоит пропахший вином но не выглядяший пъяным зверолюд в фартуке.</textl>
 		</character>
+    <character link="Мино">
+      <texts>Мино</texts>
+      <textl>Какой-то зверолюд</textl>
+    </character>
 	</loc>
 	<loc id="14">
 		<textl>Вязкое и сырое место, пахнущее гнилью.</textl>
