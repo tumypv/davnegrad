@@ -1,4 +1,4 @@
-﻿//using NAudio.Wave;
+﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -117,10 +117,10 @@ class Program
         Console.SetWindowSize(80, 25);
         Console.SetBufferSize(80, 25);
 
-        //var mp3Reader = new Mp3FileReader(@"C:\LPA2019\taverna.mp3");
-        //var waveOut = new WaveOutEvent();
-        //waveOut.Init(mp3Reader);
-        //waveOut.Play();
+        var mp3reader = new MediaFoundationReader(@"..\..\Content\music\3.m4a");
+        var waveout = new WaveOutEvent();
+        waveout.Init(mp3reader);
+        waveout.Play();
 
         xItems = XElement.Load(itrmsPath);
         xListQuest = XElement.Load(questPath);
