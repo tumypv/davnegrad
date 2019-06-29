@@ -402,7 +402,10 @@ class Program
                         
             int? flag = (int?)xreply.Attribute("flag");
             if (flag != null)
-                state.GlobalFlags.Add(flag.Value, false);
+            {
+                if (!state.GlobalFlags.ContainsKey(flag.Value))
+                    state.GlobalFlags.Add(flag.Value, false);
+            }
 
             int? quest = (int?)xreply.Attribute("quest");
             XAttribute xSetquest = xreply.Attribute("setquest");
