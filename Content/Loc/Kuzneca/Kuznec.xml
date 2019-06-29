@@ -5,7 +5,7 @@
 		<reply goto="2" flag="23" flagnotset="23">[Вылить ведро воды]</reply>
     <reply flagset="4" goto="2000">Я всё узнал.</reply>
     <reply goto="1000" flagset="23" flag="26" flagnotset="26" item="1">Это я.</reply>
-    <reply quest="1" checkquest="reported" flag="25" flagnotset="25">Я пришёл за заказом.</reply>
+    <reply quest="1" checkquest="reported" flag="25" flagnotset="25" take="22">Я пришёл за заказом.</reply>
 		<reply>[Уйти]</reply>
 	</node>
 	<node id="2">

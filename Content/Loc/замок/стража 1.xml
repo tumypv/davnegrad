@@ -2,7 +2,7 @@
 <dialog>
 	<node id="1">
 		<text>что тебе нужно от короля</text>
-		<reply haveqvest="11" item="17">я с петицией от зверолюдов</reply>
+		<reply quest="11" checkquest="accepted" item="17" teleport="16">Я с петицией от зверолюдов</reply>
 		<reply goto="2" price_="7">пропусти меня холоп</reply>
 		<reply goto="2" price="7">пропусти меня холоп</reply>
 		<reply goto="3">я вижу что у вас истреталась ковровя дорожка...</reply>
@@ -24,7 +24,7 @@
 	<node id="1000">
 		<text>о, опять ты?</text>
 		<reply questover="10" teleport="15">да, привет можно я пройду?</reply>
-		<reply haveqvest="11" item="17">я с петицией от зверолюдов</reply>
+		<reply quest="11" checkquest="accepted" item="17">я с петицией от зверолюдов</reply>
 		<reply goto="2" price_="7">пропусти меня холоп</reply>
 		<reply goto="2" price="7">пропусти меня холоп</reply>
 		<reply goto="3">я вижу, что у вас истреталась ковровя дорожка...</reply>
