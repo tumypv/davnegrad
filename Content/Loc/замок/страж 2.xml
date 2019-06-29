@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <node id="1">
+	  <text>что ты хочеш</text>
+    <reply goto="2">я к королю</reply>
+    <reply goto="3">пусти</reply>
+	<reply goto="4" quest="11"  checkquest="accepted" >я с петицией от зверолюдов</reply>
+    <reply>простите я не туда зашёл</reply>
+	
+  </node>
+	<node id="2">
+		<text>сажи конкретнее</text>
+		<reply goto="4" quest="6" checkquest="accepted">я с заданием от гильдии приключенцев</reply>
+		<reply gameover="died">"драка"</reply>
+	</node>
+	<node id="4">
+	  <text>а хорошо проходи</text>
+	  <reply teleport="17">[перед вами вход в тронный зал]</reply>
+  </node>
+  <node id="3">
+    <text>[вас оттолкнули]</text>
+    <reply teleport="16">...</reply>
+  </node>
+    
+  
+</dialog>
