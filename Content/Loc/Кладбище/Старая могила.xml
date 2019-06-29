@@ -21,7 +21,7 @@
 		<reply goto="2">[Взять что-то ещё].</reply>
 		<reply>[Уйти].</reply>
 	</node>
-	<node id="4">
+	<node id="5">
 		<text>Я бы раскопал могилу если была лопата.</text>
 		<reply>[Уйти].</reply>
 	</node>

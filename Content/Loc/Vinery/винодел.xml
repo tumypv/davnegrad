@@ -5,8 +5,8 @@
 		<reply goto="3">А кто ты?</reply>
 		<reply goto="2">Я хочу узнать про винокурню.</reply>
 		<reply>Простите я не туда зашёл.</reply>
-		<reply goto="4" quest="2" cheсkquest="accepted">Я пришёл от Миколы что б починить котёл.</reply>
-		<reply goto="9" noitem="19" quest="5" cheсkquest="accepted">Я пришёл от гильдии приключенцев помочь собрать игредиенты.</reply>
+		<reply goto="4" quest="2" checkquest="accepted">Я пришёл от Миколы что б починить котёл.</reply>
+		<reply goto="9" noitem="19" quest="5" checkquest="accepted">Я пришёл от гильдии приключенцев помочь собрать игредиенты.</reply>
 		<reply goto="10" give="19" item="19">Я принёс игредиенты.</reply>
 	</node>
 	<node id="2">
