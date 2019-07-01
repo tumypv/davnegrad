@@ -98,6 +98,42 @@ class GameState
 
 }
 
+class MusicPlayer : IDisposable
+{
+    public string trackName;
+
+    Mp3FileReader mp3Reader;
+    WaveOutEvent waveOut;
+
+    public bool IsPlaying(string trackName)
+    {
+        return
+            this.trackName == trackName && waveOut.PlaybackState == PlaybackState.Playing;
+    }
+
+    public MusicPlayer(string trackName)
+    {
+        string fileFullPath = System.IO.Path.Combine(Program.musicPath, trackName + ".mp3");
+
+        mp3Reader = new Mp3FileReader(fileFullPath);
+        waveOut = new WaveOutEvent();
+        waveOut.Init(mp3Reader);
+
+        this.trackName = trackName;
+    }
+
+    public void Dispose()
+    {
+        mp3Reader.Dispose();
+        waveOut.Dispose();
+    }
+
+    public void Play()
+    {
+        waveOut.Play();
+    }
+}
+
 class Program
 {
     static GameState state;
@@ -107,20 +143,21 @@ class Program
     static string itrmsPath = @"..\..\Content\Itrms.xml";
     static string questPath = @"..\..\Content\Quests.xml";
     static string endingsPath = @"..\..\Content\Endings.xml";
+    
+    public static string musicPath = @"..\..\Content\music";
+
     static XElement xEndings;
     static XElement xCityMap;
     static XElement xItems;
     static XElement xListQuest;
 
+    static MusicPlayer musicPlayer = null;
+    static Random rnd = new Random();
+
     static void Main(string[] args)
     {
         Console.SetWindowSize(80, 25);
         Console.SetBufferSize(80, 25);
-
-        var mp3reader = new MediaFoundationReader(@"..\..\Content\music\3.m4a");
-        var waveout = new WaveOutEvent();
-        waveout.Init(mp3reader);
-        waveout.Play();
 
         xItems = XElement.Load(itrmsPath);
         xListQuest = XElement.Load(questPath);
@@ -144,6 +181,11 @@ class Program
             Center("2. ПРОДОЛЖИТЬ ИГРУ", 12);
             Center("3. ВЫХОД", 14);
 
+            string[] tracks = new string[] {
+                "bad ending", "death ending", "emroy", "good ending", "taverna"
+            };
+            PlayMusic(tracks[rnd.Next(tracks.Length)]);
+
             int e = ReadReplyNumber(3);
             if (e == 0)
             {
@@ -160,6 +202,19 @@ class Program
                 return;
             }
         }
+    }
+
+    static void PlayMusic(string musicName)
+    {
+        if (musicPlayer != null)
+        {
+            if (musicPlayer.IsPlaying(musicName))
+                return;
+            musicPlayer.Dispose();
+            musicPlayer = null;
+        }
+        musicPlayer = new MusicPlayer(musicName);
+        musicPlayer.Play();
     }
 
     static void Center(string s, int line)
@@ -186,6 +241,9 @@ class Program
         while (state.GameOver == null)
         {
             XElement xLoc = GetLocByID(xCityMap, state.CurrentLoc);
+            XAttribute music = xLoc.Attribute("music");
+            if (music != null)
+                PlayMusic(music.Value.Trim());
 
             string text = xLoc.Element("texts").Value.Trim();
             Console.WriteLine("Вы находитесь: {0}.", text);
@@ -223,13 +281,19 @@ class Program
                     characterDescription = xCharacter.Element("texts").Value.Trim();
                     Console.WriteLine("{0}) {1}", characters.Count, characterDescription);
                 }
-                r = ReadReplyNumber(characters.Count);
-                string characterFile = characters[r].Attribute("link").Value.Trim();
-                PlayDialog(LoadCharacter(characterFile));
+                if (characters.Count > 0)
+                {
+                    r = ReadReplyNumber(characters.Count);
+                    string characterFile = characters[r].Attribute("link").Value.Trim();
+                    PlayDialog(LoadCharacter(characterFile));
 
-                if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
-                    state.NpcWeSpokeTo.Add(characterFile, false);
-
+                    if (!state.NpcWeSpokeTo.ContainsKey(characterFile))
+                        state.NpcWeSpokeTo.Add(characterFile, false);
+                }
+                else
+                {
+                    Console.WriteLine("Здесь нет ничего интересного, не к чему подходить.");
+                }
                 state.Save(savePath);
             }
             else if (r == 2)
@@ -277,6 +341,10 @@ class Program
                 xEnding = xEnding0;
                 break;
             }
+
+        string music = xEnding.Attribute("music").Value.Trim();
+        PlayMusic(music);
+
 
         foreach (XElement xText in xEnding.Elements())
         {
