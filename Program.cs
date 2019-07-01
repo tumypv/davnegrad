@@ -10,7 +10,7 @@ enum QState
 
 class GameState
 {
-    public int Money = 999999;
+    public int Money = 0;
     public Dictionary<string, bool> NpcWeSpokeTo = new Dictionary<string, bool>();
     public Dictionary<int, bool> GlobalFlags = new Dictionary<int, bool>();
     public Dictionary<int, QState> QuestState = new Dictionary<int, QState>();
@@ -37,7 +37,9 @@ class GameState
         XElement xReceivedQuest = xLoad.Element("ReceivedQuest");
         foreach (XElement xQuest in xReceivedQuest.Elements())
         {
-            //    state.QuestState.Add((int)xQuest, false);
+            int qid = (int)xQuest;
+            QState qs = (QState)Enum.Parse(typeof(QState), xQuest.Attribute("state").Value);
+            state.QuestState.Add(qid, qs);
         }
         XElement xInventory = xLoad.Element("Inventory");
         foreach (XElement xItem in xInventory.Elements())
@@ -76,6 +78,8 @@ class GameState
         foreach (int quest in QuestState.Keys)
         {
             XElement xQuest = new XElement("quest", quest);
+            XAttribute xState = new XAttribute("state", QuestState[quest]);
+            xQuest.Add(xState);
             xReceivedQuest.Add(xQuest);
         }
 
@@ -213,8 +217,8 @@ class Program
             musicPlayer.Dispose();
             musicPlayer = null;
         }
-        musicPlayer = new MusicPlayer(musicName);
-        musicPlayer.Play();
+ //       musicPlayer = new MusicPlayer(musicName);
+ //       musicPlayer.Play();
     }
 
     static void Center(string s, int line)

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <node id="1">
+    <text>Коса</text>
+    <reply quest="3" checkquest="accepted" take="2" noitem="2">[Взять косу]</reply>
+    <reply item="2" goto="2">[Взять косу]</reply>
+    <reply quest="3" checkquest="unknown">[Уйти]</reply>
+  </node>
+  <node id="2">
+    <text>[Вы переложили косу из правой руки в левую. Наверное так удобнее]</text>
+    <reply>[Произошол троллинг]</reply>
+  </node>
+</dialog>
