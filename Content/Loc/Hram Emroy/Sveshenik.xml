@@ -2,8 +2,9 @@
 <dialog>
 	<node id="1">
 		<text>Здравствуй, путник хочешь поднести что-то нашему богу?</text>
-		<reply goto="2">А вы даёте задания?</reply>
+		<reply goto="2" flagnotset="5" quest="3" checkquest="unknown">А вы даёте задания?</reply>
 		<reply goto="500">А что за бог у вас?</reply>
+    <reply quest="3" checkquest="completed" goto="6">Я по работе</reply>
 		<reply  flagset="13"  goto="20">Я отровил короля.</reply>
 		<reply>Нет, мне уже пора.</reply>
 	</node>
@@ -27,16 +28,16 @@
 	</node>
 	<node id="5">
 		<text>Ну тогда поручаю его тебе. Как закончишь подходи ко мне за наградой. Если вздумаешь обмануть меня, то тебе с рук это не сойдёт!</text>
-		<reply quest="3">Да даже в мыслях не было обманывать служителя бога!</reply>
+		<reply quest="3" setquest="accepted">Да даже в мыслях не было обманывать служителя бога!</reply>
 	</node>
 	<node id="6">
 		<text>Здравствуй, ну что скосил траву?</text>
-		<reply goto="7" flagset="5" >Да за 5 минут всё скосил!</reply>
+		<reply goto="7" flagset="5" quest="3" setquest="reported">Да за 5 минут всё скосил!</reply>
 		<reply goto="8">Нет.</reply>
 	</node>
 	<node id="7">
 		<text>Молодец, вот твоя награда, заходи может ещё для тебя найдутся задания!</text>
-		<reply take="10">Спасибо.</reply>
+		<reply givemoney="5">Спасибо.</reply>
 	</node>
 	<node id="8">
 		<text>Иди коси тогда!</text>
@@ -64,10 +65,10 @@
 	</node>
 	<node id="12">
 		<text>Молодец этот меч будет отлично смотреться нашему богу!</text>
-		<reply goto="13">Ага, а награда?</reply>
+		<reply goto="13" givemoney="20">Ага, а награда?</reply>
 	</node>
 	<node id="13">
-		<text take="10 , 20">Вот твоя награда, не хочешь более серьёзное задание?</text>
+		<text>Вот твоя награда, не хочешь более серьёзное задание?</text>
 		<reply goto="14">Да, надеюсь будет, что-нибудь по сложнее.</reply>
 		<reply>Мне нужно подумать.</reply>
 	</node>

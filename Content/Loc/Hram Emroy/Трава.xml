@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <node id="1">
+    <text>Трава</text>
+    <reply give="2" flagnotset="5" goto="2">[Косить траву]</reply>
+    <reply flagset="5">[Вы стоите на покошенной трава]</reply>
+  </node>
+  <node id="2">
+    <text>[Вы косите траву]</text>
+    <reply goto="3">[Косить дальше]</reply>
+  </node>
+  <node id="3">
+    <text>[Вы скосили траву]</text>
+    <reply flag="5" quest="3" setquest="completed">[Закончить косить траву]</reply>
+  </node>
+</dialog>
